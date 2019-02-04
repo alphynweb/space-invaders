@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Invaders</title>
+	<style>
+		#gameArea {
+			margin: auto;
+			z-index: 50;
+			background: url(./assets/images/sprite-2.png) 0 -700px no-repeat;
+			width: 1046px;
+			/* height: 1142px; */
+			height: 800px;
+			position: relative;
+			text-align: center;
+		}
+
+		#screenCanvas {
+			z-index: 50;
+		}
+
+		/* Todo - remove */
+
+		#info {
+			position: absolute;
+			top: 10;
+			left: 10;
+		}
+
+		.button {
+			outline: none;
+			border: none;
+			font-size: 20px;
+			display: inline-block;
+			margin: auto;
+			padding: 20px;
+			opacity: 1;
+			z-index: 100;
+			cursor: pointer;
+			position: relative;
+		}
+
+		#startButton {
+			margin-top: 400px;
+			border-radius: 8px;
+		}
+
+		#startButton:hover {
+			background-color: red;
+		}
+
+		.show {
+			display: inline-block;
+		}
+
+		.hide {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="gameArea"></div>
+
+</body>
+
+</html>
