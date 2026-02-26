@@ -285,6 +285,21 @@ export default class Game {
         );
     }
 
+    reset = () => {
+        this.score.reset();
+        this.lives.reset();
+        this.tank.reset();
+        this.invaders.reset();
+        this.currentLevel = 1;
+        // this.invaders.initializeLevel(
+        //     this.invadersDefinition.getLevelConfig()
+        // );
+        this.setupDefinitions();
+        this.invaders.initializeLevel(
+            this.invadersDefinition.getLevelConfig()
+        );
+    }
+
     checkCollisions = () => {
         this.collisionSystem.checkCollisions();
         const collisions = this.collisionSystem.collisions;
@@ -482,6 +497,8 @@ export default class Game {
         this.cities.cityList.forEach(city => {
             this.graphicsManager.renderCity(city);
         });
+
+        this.reset();
 
         this.gameStates.currentState = this.gameStates.run;
         this.gameLoop.start();

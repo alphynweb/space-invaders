@@ -9,7 +9,8 @@ export default class InvadersDefinition {
             columnWidth: this.columnWidth,
             rowHeight: this.rowHeight,
             rowGap: this.rowGap,
-            bullets: this.bullets
+            bullets: this.bullets,
+            moveSpeed: this.moveSpeed
         };
     }
     setLevelConfig(configs, currentLevel) {
@@ -21,6 +22,7 @@ export default class InvadersDefinition {
         this.columns = config.columns;
         this.columnGap = config.columnGap;
         this.columnWidth = config.columnWidth;
+        this.moveSpeed = config.moveSpeed;
         this.rowHeight = config.rowHeight;
         this.rowGap = config.rowGap;
         this.bullets = config.bullets;

@@ -17,6 +17,11 @@ export default class Invaders {
         this.invaderConfigs = invaderConfigs;
     }
 
+    reset = () => {
+        this.invaderList = [];
+        // this.initializeLevel(this.invadersConfig.configs.wave1);
+    }
+
     initializeLevel(levelConfig) {
         this.setLevelConfig(levelConfig);
         this.build();

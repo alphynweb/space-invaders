@@ -105,6 +105,29 @@ export default class IntroScreen {
         this.buildInvadersInfo();
         this.invadersInfo[0].status = 'started';
         console.log(this.invadersInfo);
+
+        const subType = 'startButton';
+        const animationType = 'normal';
+
+        const startButtonConfigs = this.buttonConfig.configs[subType].spriteInfo[animationType];
+
+        const x = this.screenCenter - (startButtonConfigs.width / 2);
+        const y = 400;
+
+        const clickListen = (event) => {
+            const rect = this.screen.screen.getBoundingClientRect();
+            const xClicked = event.clientX - rect.left;
+            const yClicked = event.clientY - rect.top;
+
+            if (x < xClicked && (x + startButtonConfigs.width) > xClicked && y < yClicked && (y + startButtonConfigs.height) > yClicked) {
+                event.currentTarget.removeEventListener('click', clickListen);
+                this.graphicsManager.clear();
+                this.cleanup();
+                this.startGame();
+            }
+        }
+
+        this.screen.screen.addEventListener('click', clickListen);
     }
 
     render = (delta) => {
@@ -211,21 +234,6 @@ export default class IntroScreen {
         );
 
         this.graphicsManager.render(startButton);
-
-        const clickListen = (event) => {
-            const rect = this.screen.screen.getBoundingClientRect();
-            const xClicked = event.clientX - rect.left;
-            const yClicked = event.clientY - rect.top;
-
-            if (x < xClicked && (x + width) > xClicked && y < yClicked && (y + height) > yClicked) {
-                event.currentTarget.removeEventListener('click', clickListen);
-                this.graphicsManager.clear();
-                this.cleanup();
-                this.startGame();
-            }
-        }
-
-        this.screen.screen.addEventListener('click', clickListen);
     }
 
     renderInstructions = () => {
