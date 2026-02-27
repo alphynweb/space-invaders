@@ -23,7 +23,6 @@ export default class Cities {
     reset = () => {
         // Clear the canvases that are already here and then build new ones from scratch
         this.cityList.forEach(city => {
-            console.log(city.canvasId);
             const cityCanvas = document.getElementById(city.canvasId);
             if (cityCanvas) {
                 cityCanvas.remove();
@@ -55,7 +54,6 @@ export default class Cities {
 
             this.cityList.push(newCity);
         }
-        console.log(this.cityList);
     }
 
     clear() {

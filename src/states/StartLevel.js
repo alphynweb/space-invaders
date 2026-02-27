@@ -39,7 +39,6 @@ export default class StartLevel {
         if (this.timer >= this.duration) {
             this.timer = 0;
             this.switchState(null);
-            console.log('hiding');
         }
     }
 }

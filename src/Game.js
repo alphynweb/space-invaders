@@ -286,7 +286,6 @@ export default class Game {
     }
 
     setup = () => {
-        console.trace("Resetting game");
         this.score.reset();
         this.lives.reset();
         this.tank.reset();
@@ -478,6 +477,7 @@ export default class Game {
         this.mothership.purge(); // Get rid of mothership if destroyed
 
         if (this.invaders.invaderList.length < 1) {
+            this.cities.clear();
             this.gameStates.currentState = this.gameStates.finishLevel;
         }
     }
@@ -494,7 +494,6 @@ export default class Game {
     }
 
     onStartGame = () => {
-        console.trace("On start game.");
         this.volumeControlContainer.style.visibility = "visible";
         this.volumeControl.oninput = () => {
             this.soundManager.onSetVolume(this.volumeControl.value);
@@ -563,11 +562,19 @@ export default class Game {
         this.startLevel.render();
         this.startLevel.update(this.gameLoop.delta);
         if (!this.startLevel.state) {
-            this.setupEntities();
-            this.setupStates();
+            this.invaders.reset();
+            this.setupDefinitions();
+            this.invaders.initializeLevel(
+                this.invadersDefinition.getLevelConfig()
+            );
+            this.cities.reset();
+            this.cities.initializeLevel();
             this.cities.cityList.forEach(city => {
                 this.graphicsManager.renderCity(city);
             });
+            this.mothership.reset();
+            this.bullets.initializeLevel();
+
             this.gameStates.currentState = this.gameStates.run;
         }
 

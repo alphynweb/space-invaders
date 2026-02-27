@@ -40,7 +40,6 @@ export default class FinishLevel {
         if (this.timer >= this.duration) {
             this.timer = 0;
             this.switchState(null);
-            console.log('hiding');
         }
     }
 }

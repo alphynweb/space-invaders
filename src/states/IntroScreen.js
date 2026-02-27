@@ -104,7 +104,6 @@ export default class IntroScreen {
 
         this.buildInvadersInfo();
         this.invadersInfo[0].status = 'started';
-        console.log(this.invadersInfo);
 
         const subType = 'startButton';
         const animationType = 'normal';
@@ -120,10 +119,8 @@ export default class IntroScreen {
             const yClicked = event.clientY - rect.top;
 
             if (x < xClicked && (x + startButtonConfigs.width) > xClicked && y < yClicked && (y + startButtonConfigs.height) > yClicked) {
-                console.log("Start button clicked");
                 this.screen.screen.removeEventListener('click', clickListen);
                 this.cleanup();
-                console.log("Start game from intor");
                 this.startGame();
             }
         }
