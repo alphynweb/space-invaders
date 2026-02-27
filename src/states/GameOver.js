@@ -15,6 +15,7 @@ export default class GameOver {
         this.eventEmitter.on('typewriterTextFinished', this.handleTypewriterTextFinished);
         this.graphicsManager = graphicsManager;
         this.screen = screen;
+        this.screenCenter = screen.width / 2;
         this.endGame = endGame;
         this.textConfig = textConfig;
         this.textObjects = [];
@@ -34,10 +35,33 @@ export default class GameOver {
     init = () => {
         this.buildTextObjects();
         this.textObjects[0].status = 'started';
+
+        const subType = 'startButton';
+        const animationType = 'normal';
+
+        const startButtonConfigs = this.buttonConfig.configs[subType].spriteInfo[animationType];
+
+        const x = this.screenCenter - (startButtonConfigs.width / 2);
+        const y = 400;
+
+        const clickListen = (event) => {
+            const rect = this.screen.screen.getBoundingClientRect();
+            const xClicked = event.clientX - rect.left;
+            const yClicked = event.clientY - rect.top;
+
+            if (x < xClicked && (x + startButtonConfigs.width) > xClicked && y < yClicked && (y + startButtonConfigs.height) > yClicked) {
+                event.currentTarget.removeEventListener('click', clickListen);
+                this.graphicsManager.clear();
+                this.cleanup();
+                this.startGame();
+            }
+        }
+
+        this.screen.screen.addEventListener('click', clickListen, {once: true});
     }
 
     update = (delta) => {
-        console.log("Running GameOver update");
+        // console.log("Running GameOver update");
         this.renderText(delta);
         this.renderStartButton();
     }
@@ -104,8 +128,7 @@ export default class GameOver {
         const startButtonConfigs = this.buttonConfig.configs[subType].spriteInfo[animationType];
         const width = startButtonConfigs.width;
         const height = startButtonConfigs.height;
-        // const x = this.screenCenter - (width / 2);
-        const x = 400;
+        const x = this.screenCenter - (width / 2);
         const y = 400;
 
         const startButton = new Button(
@@ -118,20 +141,7 @@ export default class GameOver {
 
         this.graphicsManager.render(startButton);
 
-        const clickListen = (event) => {
-            const rect = this.screen.screen.getBoundingClientRect();
-            const xClicked = event.clientX - rect.left;
-            const yClicked = event.clientY - rect.top;
 
-            if (x < xClicked && (x + width) > xClicked && y < yClicked && (y + height) > yClicked) {
-                event.currentTarget.removeEventListener('click', clickListen);
-                this.graphicsManager.clear();
-                this.cleanup();
-                this.startGame();
-            }
-        }
-
-        this.screen.screen.addEventListener('click', clickListen);
     }
 
     handleTypewriterTextFinished = (textObject) => {

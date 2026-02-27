@@ -26,10 +26,6 @@ export default class Bullets {
         this.bulletList.splice(index, 1);
     }
 
-    reset() {
-        this.bulletList = [];
-    }
-
     move() {
         this.bulletList.forEach((bullet, index) => {
             // If tank bullet reaches top of screen, remove it from bulletList

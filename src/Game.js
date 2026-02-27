@@ -285,19 +285,24 @@ export default class Game {
         );
     }
 
-    reset = () => {
+    setup = () => {
+        console.trace("Resetting game");
         this.score.reset();
         this.lives.reset();
         this.tank.reset();
         this.invaders.reset();
         this.currentLevel = 1;
-        // this.invaders.initializeLevel(
-        //     this.invadersDefinition.getLevelConfig()
-        // );
         this.setupDefinitions();
         this.invaders.initializeLevel(
             this.invadersDefinition.getLevelConfig()
         );
+        this.cities.reset();
+        this.cities.initializeLevel();
+        this.cities.cityList.forEach(city => {
+            this.graphicsManager.renderCity(city);
+        });
+        this.mothership.reset();
+        this.bullets.initializeLevel();
     }
 
     checkCollisions = () => {
@@ -488,20 +493,16 @@ export default class Game {
         this.startButton = document.getElementById('startButton');
     }
 
-    onStartGame = async () => {
+    onStartGame = () => {
+        console.trace("On start game.");
         this.volumeControlContainer.style.visibility = "visible";
         this.volumeControl.oninput = () => {
             this.soundManager.onSetVolume(this.volumeControl.value);
         }
 
-        this.cities.cityList.forEach(city => {
-            this.graphicsManager.renderCity(city);
-        });
-
-        this.reset();
+        this.setup();
 
         this.gameStates.currentState = this.gameStates.run;
-        this.gameLoop.start();
     }
 
     onRunGame = (currentTime) => {
@@ -577,7 +578,7 @@ export default class Game {
         const delta = this.gameLoop.delta;
         this.tank.update(delta);
         if (this.tank.animationType === 'normal') {
-            if (this.lives.livesLeft === 0) {
+            if (this.lives.livesLeft <= 0) {
                 this.cities.clear();
                 this.gameOver.init();
                 this.gameStates.currentState = this.gameStates.over;

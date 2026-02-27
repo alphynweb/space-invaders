@@ -21,7 +21,6 @@ export default class IntroScreen {
         this.invaderConfig = invaderConfig;
         this.buttonConfig = buttonConfig;
         this.screen = screen;
-        this.screenCenter = screen.width / 2;
         this.ctx = screen.ctx;
         this.font = this.textConfig.configs['gameText'].font;
         this.arrowFont = this.textConfig.configs['gameText'].arrowFont;
@@ -35,12 +34,13 @@ export default class IntroScreen {
         this.invadersInfoIndex = 0;
         this.textDelay = 200;
         this.textTimer = 0;
-
+        this.screenCenter = screen.width / 2;
         this.startGame = startGame;
         this.init();
     }
 
     init = () => {
+
         this.invaders = [];
         let index = 1;
         for (const [subType, config] of Object.entries(this.invaderConfig.configs)) {
@@ -120,19 +120,19 @@ export default class IntroScreen {
             const yClicked = event.clientY - rect.top;
 
             if (x < xClicked && (x + startButtonConfigs.width) > xClicked && y < yClicked && (y + startButtonConfigs.height) > yClicked) {
-                event.currentTarget.removeEventListener('click', clickListen);
-                this.graphicsManager.clear();
+                console.log("Start button clicked");
+                this.screen.screen.removeEventListener('click', clickListen);
                 this.cleanup();
+                console.log("Start game from intor");
                 this.startGame();
             }
         }
 
-        this.screen.screen.addEventListener('click', clickListen);
+        this.screen.screen.addEventListener('click', clickListen, { once: true });
     }
 
     render = (delta) => {
         this.renderInvadersInfo(delta);
-        // this.renderMothershipInfo();
         this.renderStartButton();
         this.renderInstructions();
     }
@@ -298,6 +298,7 @@ export default class IntroScreen {
     }
 
     cleanup = () => {
+        this.graphicsManager.clear();
         this.invadersInfo = [];
         this.motherships = [];
         this.eventEmitter.removeListener('typewriterTextFinished', this.handleTypewriterTextFinished);

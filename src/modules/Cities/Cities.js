@@ -16,12 +16,19 @@ export default class Cities {
     }
 
     initializeLevel = () => {
-        this.cityList.forEach(city => {
-            const canvas = document.getElementById(city.canvasId);
-            if (canvas) canvas.remove();
-        });
         this.cityList = [];
         this.build();
+    }
+
+    reset = () => {
+        // Clear the canvases that are already here and then build new ones from scratch
+        this.cityList.forEach(city => {
+            console.log(city.canvasId);
+            const cityCanvas = document.getElementById(city.canvasId);
+            if (cityCanvas) {
+                cityCanvas.remove();
+            }
+        });
     }
 
     build() {
@@ -54,12 +61,6 @@ export default class Cities {
     clear() {
         this.cityList.forEach((city) => {
             city.clear();
-        });
-    }
-
-    render() {
-        this.cityList.forEach((city) => {
-            city.render();
         });
     }
 }
