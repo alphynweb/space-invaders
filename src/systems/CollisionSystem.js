@@ -49,6 +49,7 @@ export default class CollisionSystem {
 
             // Tank bullet vs invaders
             for (const invader of this.invaders.invaderList) {
+                if (invader.animationType === 'exploding') return;
                 collisionInfo = this.collisionDetector.collisionInfo(tankBullet, invader);
 
                 if (collisionInfo.didCollide) {
