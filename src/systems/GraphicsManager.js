@@ -102,8 +102,8 @@ export default class GraphicsManager {
             this.typewriterTextTimer = 0;
             this.typewriterTextIndex++;
             if (this.typewriterTextIndex >= textSplit.length) {
-                this.eventEmitter.emit('typewriterTextFinished', textObject);
                 this.clear();
+                this.eventEmitter.emit('typewriterTextFinished', textObject);
             }
         }
     }

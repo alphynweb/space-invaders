@@ -184,6 +184,8 @@ export default class Game {
     setupStates = () => {
         this.startLevel = null;
         this.finishLevel = null;
+        this.introScreen = null;
+        this.gameOver = null;
 
         this.introScreen = new IntroScreen(
             this.eventEmitter,
