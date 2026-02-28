@@ -106,6 +106,7 @@ export default class CollisionSystem {
 
             // Tank bullet vs mothership
             if (this.mothership.isActive) {
+                if (this.mothership.animationType === 'exploding') return;
                 collisionInfo = this.collisionDetector.collisionInfo(tankBullet, this.mothership);
 
                 if (collisionInfo.didCollide) {
