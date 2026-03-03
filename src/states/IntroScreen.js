@@ -14,7 +14,9 @@ export default class IntroScreen {
         buttonConfig
     ) {
         this.eventEmitter = eventEmitter;
+        this.eventEmitter.removeAllListeners('typewriterTextFinished');
         this.eventEmitter.on('typewriterTextFinished', this.handleTypewriterTextFinished);
+        console.log(this.eventEmitter.listenerCount('typewriterTextFinished'));
         this.graphicsManager = graphicsManager;
         this.textConfig = textConfig;
         this.mothershipConfig = mothershipConfig;
@@ -285,6 +287,6 @@ export default class IntroScreen {
         this.graphicsManager.clear();
         this.invadersInfo = [];
         this.motherships = [];
-        this.eventEmitter.removeListener('typewriterTextFinished', this.handleTypewriterTextFinished);
+        this.eventEmitter.removeAllListeners('typewriterTextFinished');
     }
 }

@@ -12,6 +12,7 @@ export default class GameOver {
         score
     ) {
         this.eventEmitter = eventEmitter;
+        // this.eventEmitter.removeAllListeners('typewriterTextFinished');
         this.eventEmitter.on('typewriterTextFinished', this.handleTypewriterTextFinished);
         this.graphicsManager = graphicsManager;
         this.screen = screen;
@@ -57,11 +58,10 @@ export default class GameOver {
             }
         }
 
-        this.screen.screen.addEventListener('click', clickListen, {once: true});
+        this.screen.screen.addEventListener('click', clickListen, { once: true });
     }
 
     update = (delta) => {
-        // console.log("Running GameOver update");
         this.renderText(delta);
         this.renderStartButton();
     }
@@ -150,6 +150,6 @@ export default class GameOver {
     }
 
     cleanup = () => {
-        this.eventEmitter.removeListener('typewriterTextFinished', this.handleTypewriterTextFinished);
+        // this.eventEmitter.removeAllListeners('typewriterTextFinished');
     }
 }
