@@ -26,6 +26,10 @@ export default class CollisionSystem {
         this.collisions = [];
     }
 
+    reset = () => {
+        this.collisions = [];
+    }
+
     checkCollisions() {
         this.collisions = [];
         this.handleTankBulletCollisions();
@@ -141,10 +145,6 @@ export default class CollisionSystem {
             // Run through any invaders bullets in bulletsList
             this.bullets.bulletList.forEach((bullet, index) => {
                 if (bullet.subType.slice(0, 7) === 'invader') {
-                    // invader = this.invadersConfigArray.find(inv => inv.type === bullet.type.replace('_bullet', ''));
-                    // invader = this.invadersConfigArray.configs[bullet.subType];
-                    // bulletInfo = invader.bulletInfo;
-
                     // Invader vs Tank
                     collisionInfo = this.collisionDetector.collisionInfo(bullet, this.tank);
 
@@ -185,6 +185,7 @@ export default class CollisionSystem {
                                     target: city
                                 };
                                 this.collisions.push(collisionObj);
+                                // console.trace(collisionObj);
                             }
                         }
                     });

@@ -16,7 +16,6 @@ export default class IntroScreen {
         this.eventEmitter = eventEmitter;
         this.eventEmitter.removeAllListeners('typewriterTextFinished');
         this.eventEmitter.on('typewriterTextFinished', this.handleTypewriterTextFinished);
-        console.log(this.eventEmitter.listenerCount('typewriterTextFinished'));
         this.graphicsManager = graphicsManager;
         this.textConfig = textConfig;
         this.mothershipConfig = mothershipConfig;
@@ -90,7 +89,6 @@ export default class IntroScreen {
 
         this.buildInvadersInfo();
         this.invadersInfo[0].status = 'started';
-        console.log(this.invadersInfo);
 
         const subType = 'startButton';
         const animationType = 'normal';

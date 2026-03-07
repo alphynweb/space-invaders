@@ -17,7 +17,7 @@ const screen = () => {
         screen: newScreen,
         width: config.SCREEN.configs.main.width,
         height: config.SCREEN.configs.main.height,
-        ctx: newScreen.getContext('2d'),
+        ctx: newScreen.getContext('2d', { willReadFrequently: true }),
         render: function() {
             const gameArea = document.getElementById('gameArea');
             gameArea.style.width = config.SCREEN.configs.main.width + 'px';

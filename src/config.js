@@ -163,7 +163,7 @@ export const INVADERS = {
             moveSpeed: 20, // Distance invaders move horizontally
             shiftDownSpeed: 30, // Distance invaders shift down by when they reach the edge of the screen
             bullets: 2,
-            y: 150,
+            y: 200,
             maxY: 300,
             columnWidth: 50,
             rowHeight: 50,

@@ -343,7 +343,7 @@ export default class Game {
                     }
                 }
 
-                this.graphicsManager.damageCity(city, topLeftX, topLeftY)
+                this.graphicsManager.damageCity(city, topLeftX, topLeftY);
                 this.bullets.removeBullet(collision.bulletIndex);
             },
             "Tank vs Mothership": (collision) => {
@@ -385,7 +385,7 @@ export default class Game {
                     }
                 }
 
-                this.graphicsManager.damageCity(city, topLeftX, topLeftY)
+                this.graphicsManager.damageCity(city, topLeftX, topLeftY);
                 this.bullets.removeBullet(collision.bulletIndex);
             },
             "Mothership vs Tank": (collision) => {
@@ -415,6 +415,7 @@ export default class Game {
                     handlerType(collision);
                 }
             });
+            this.collisionSystem.reset();
         }
     }
 
@@ -555,6 +556,7 @@ export default class Game {
             this.currentLevel++;
             this.setupStates();
             this.startLevel.state = 'show';
+            this.bullets.bulletList = [];
             this.gameStates.currentState = this.gameStates.startLevel;
         }
     }
@@ -609,12 +611,13 @@ export default class Game {
     onEndGame = () => {
         this.screen.clear();
         const delta = this.gameLoop.delta;
+        this.bullets.bulletList = [];
         this.gameOver.update(delta);
     }
 
     createInvaderBullets = () => {
         // Check how many invader bullets are currently in play
-        let invaderBullets = this.bullets.bulletList.filter((bullet) => bullet.subType.slice(0, 7) === 'invader');
+        let invaderBullets = this.bullets.bulletList.filter((bullet) => bullet.subType.includes('invader'));
 
         let invaderIndex;
         let invader;
@@ -622,7 +625,8 @@ export default class Game {
         let bottomInv;
 
         // If it's less than 2(? Arbitrary) for example, then create more randomly so there are always 2
-        let noBulletsToCreate = this.invadersDefinition.bullets - invaderBullets.length;
+        let noBulletsToCreate = Math.min(this.invaders.invaderList.length - invaderBullets.length, this.invadersDefinition.bullets);
+        if (noBulletsToCreate <= 0) return;
 
         for (let i = 0; i < noBulletsToCreate; i++) {
             // Choose random invader - the bottom one of whatever column
@@ -640,7 +644,7 @@ export default class Game {
 
             const subType = bottomInv.subType;
 
-            if (!bottomInv.isAnimating) {
+            if (bottomInv.animationType !== 'exploding') {
                 this.bullets.addBullet(
                     'bullet',
                     subType,

@@ -8,7 +8,7 @@ export default class City {
         this.canvasId = canvasId;
         this.x = x;
         this.y = config.y;
-        this.ctx = document.getElementById(canvasId).getContext('2d');
+        this.ctx = document.getElementById(canvasId).getContext('2d', { willReadFrequently: true });;
         this.sprite = Sprite();
         this.width = config.width;
         this.height = config.height;

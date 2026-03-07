@@ -23,7 +23,12 @@ export default class Bullets {
     }
 
     removeBullet(index) {
+        // console.log("Removign bullet", this.bulletList[index].subType);
+        // if (this.bulletList[index].subType === 'tank') {
+        //     console.trace("Removign bullet", this.bulletList[index].subType);
+        // }
         this.bulletList.splice(index, 1);
+
     }
 
     move() {
@@ -39,6 +44,10 @@ export default class Bullets {
                 bullet.subType === 'invader3' ||
                 bullet.subType === 'mothership'
             ) && bullet.y > SCREEN.configs['main'].height) {
+                this.removeBullet(index);
+            }
+            // If mothership bullet reaches bottom of screen, remove it from bulletList
+            if (bullet.subType === 'mothership' && bullet.y > SCREEN.configs['main'].height) {
                 this.removeBullet(index);
             }
             bullet.move();
