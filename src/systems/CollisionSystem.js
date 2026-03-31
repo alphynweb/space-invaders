@@ -75,36 +75,15 @@ export default class CollisionSystem {
                 collisionInfo = this.collisionDetector.collisionInfo(tankBullet, city);
 
                 if (collisionInfo.didCollide) {
-                    // Check the area directly above the bullet to see whether it's solid
-
-                    // If bullet y is lower than city y (To stop checking element outside the bounds of the city = error)
-                    let damageCity = false;
-
-                    // Area to check imagedata of
-                    const topLeftX = tankBullet.x - city.x; // Bullet x
-                    const topLeftY = tankBullet.y - city.y - 1; // 1 px above bullet y
-
-                    const width = tankBullet.width;
-
-                    const height = 1;
-                    const imgData = city.ctx.getImageData(topLeftX, topLeftY, width, height);
-
-                    for (let i = 0; i < imgData.data.length; i += 4) {
-                        if (imgData.data[i + 3] === 255) {
-                            damageCity = true;
-                        }
-                    }
-
-                    if (damageCity) { // If pixel alpha is 255
-                        const collision = {
-                            type: 'Tank vs City',
-                            bullet: tankBullet,
-                            bulletIndex: tankBulletIndex,
-                            target: city
-                        };
-                        this.collisions.push(collision);
-                        break;
-                    }
+                    const collision = {
+                        type: 'Tank vs City',
+                        bullet: tankBullet,
+                        bulletIndex: tankBulletIndex,
+                        target: city,
+                        lookAhead: collisionInfo.lookAhead
+                    };
+                    this.collisions.push(collision);
+                    break;
                 }
             }
 

@@ -169,6 +169,10 @@ export default class GraphicsManager {
 
         );
         this.ctx.globalCompositeOperation = 'source-over'; // Change back to default for re-rendering of cities
+
+        // For testing Todo - delete
+        // ctx.fillStyle = 'red';
+        // ctx.fillRect(topLeftX, topLeftY, spriteInfo.damageWidth, spriteInfo.damageHeight);
     }
 
     clear = () => {

@@ -338,7 +338,7 @@ export default class Game {
 
                 for (const [matchFn, handlerFn] of this.cityCollisionMap) {
                     if (matchFn(subType)) {
-                        topLeftY = handlerFn(city, bullet, configs);
+                        topLeftY = handlerFn(collision, configs);
                         break;
                     }
                 }

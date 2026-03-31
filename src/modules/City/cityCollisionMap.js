@@ -9,9 +9,9 @@ const cityCollisionMap = new Map([
     ],
     [
         subType => subType === 'tank',
-        (city, collisionObject, configs) => {
-            const bulletConfig = configs.find(c => c.type === 'bullet').configs['tank'];
-            const topLeftY = collisionObject.y - city.y - city.spriteInfo.damageHeight + bulletConfig.speed;
+        (collision, configs) => {
+            // const bulletConfig = configs.find(c => c.type === 'bullet').configs['tank'];
+            const topLeftY = collision.bullet.y - collision.lookAhead - collision.target.y - collision.target.spriteInfo.damageHeight;
             return topLeftY;
         }
     ],
