@@ -155,6 +155,7 @@ export default class GraphicsManager {
     damageCity = (city, topLeftX, topLeftY) => {
         const ctx = city.ctx;
         const spriteInfo = city.spriteInfo;
+
         ctx.globalCompositeOperation = 'destination-out';
         ctx.drawImage(
             this.sprite,

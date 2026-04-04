@@ -13,6 +13,7 @@ export default class City {
         this.width = config.width;
         this.height = config.height;
         this.spriteInfo = config.spriteInfo;
+        this.type = 'city';
     }
 
     damage(collisionObject) { // collisionObject = Bullet tyep that collided with city

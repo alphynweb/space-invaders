@@ -41,6 +41,8 @@ export default class CollisionSystem {
     handleTankBulletCollisions = () => {
         let tankBulletIndex;
         let collisionInfo;
+        let bulletCanvasInfo;
+        let targetCanvasInfo;
 
         if (this.bullets.bulletList.length) {
             tankBulletIndex = this.bullets.bulletList.findIndex((bullet) => {
@@ -54,7 +56,24 @@ export default class CollisionSystem {
             // Tank bullet vs invaders
             for (const invader of this.invaders.invaderList) {
                 if (invader.animationType === 'exploding') return;
-                collisionInfo = this.collisionDetector.collisionInfo(tankBullet, invader);
+
+                bulletCanvasInfo = {
+                    ctx: this.screen.ctx,
+                    x: 0,
+                    y: 0,
+                    width: this.screen.width,
+                    height: this.screen.height
+                }
+
+                targetCanvasInfo = {
+                    ctx: this.screen.ctx,
+                    x: 0,
+                    y: 0,
+                    width: this.screen.width,
+                    height: this.screen.height
+                }
+
+                collisionInfo = this.collisionDetector.collisionInfo(bulletCanvasInfo, targetCanvasInfo, tankBullet, invader);
 
                 if (collisionInfo.didCollide) {
                     if (!invader.isExploding) {
@@ -72,7 +91,24 @@ export default class CollisionSystem {
 
             // Tank bulllet vs cities
             for (const city of this.cities.cityList) {
-                collisionInfo = this.collisionDetector.collisionInfo(tankBullet, city);
+
+                bulletCanvasInfo = {
+                    ctx: this.screen.ctx,
+                    x: 0,
+                    y: 0,
+                    width: this.screen.width,
+                    height: this.screen.height
+                }
+
+                targetCanvasInfo = {
+                    ctx: city.ctx,
+                    x: city.x,
+                    y: city.y,
+                    width: city.width,
+                    height: city.height
+                }
+
+                collisionInfo = this.collisionDetector.collisionInfo(bulletCanvasInfo, targetCanvasInfo, tankBullet, city);
 
                 if (collisionInfo.didCollide) {
                     const collision = {
@@ -90,7 +126,24 @@ export default class CollisionSystem {
             // Tank bullet vs mothership
             if (this.mothership.isActive) {
                 if (this.mothership.animationType === 'exploding') return;
-                collisionInfo = this.collisionDetector.collisionInfo(tankBullet, this.mothership);
+
+                bulletCanvasInfo = {
+                    ctx: this.screen.ctx,
+                    x: 0,
+                    y: 0,
+                    width: this.screen.width,
+                    height: this.screen.height
+                }
+
+                targetCanvasInfo = {
+                    ctx: this.screen.ctx,
+                    x: 0,
+                    y: 0,
+                    width: this.screen.width,
+                    height: this.screen.height
+                }
+
+                collisionInfo = this.collisionDetector.collisionInfo(bulletCanvasInfo, targetCanvasInfo, tankBullet, this.mothership);
 
                 if (collisionInfo.didCollide) {
                     const collision = {
@@ -120,12 +173,14 @@ export default class CollisionSystem {
             let damageCity = false;
             let collisionObj;
             let collisionInfo;
+            let bulletCanvasInfo;
+            let targetCanvasInfo;
 
             // Run through any invaders bullets in bulletsList
             this.bullets.bulletList.forEach((bullet, index) => {
                 if (bullet.subType.slice(0, 7) === 'invader') {
                     // Invader vs Tank
-                    collisionInfo = this.collisionDetector.collisionInfo(bullet, this.tank);
+                    collisionInfo = this.collisionDetector.collisionInfo(bulletCanvasInfo, targetCanvasInfo, bullet, this.tank,);
 
                     if (collisionInfo.didCollide && !this.tank.isAnimating) {
                         collisionObj = {
@@ -138,36 +193,38 @@ export default class CollisionSystem {
                     }
 
                     // Invader vs cities
-                    this.cities.cityList.forEach((city) => {
+                    for (const city of this.cities.cityList) {
                         damageCity = false;
-                        collisionInfo = this.collisionDetector.collisionInfo(bullet, city);
-                        if (collisionInfo.didCollide) {
-                            // Check the area directly above the bullet to see whether it's solid
-                            // Area to check imagedata of
-                            topLeftX = bullet.x - city.x; // Bullet x
-                            topLeftY = bullet.y - city.y + bullet.height; // 1 px below bullet y
-                            width = bullet.width;
-                            height = 1;
-                            imgData = city.ctx.getImageData(topLeftX, topLeftY, width, height);
 
-                            for (let i = 0; i < imgData.data.length; i += 4) {
-                                if (imgData.data[i + 3] === 255) {
-                                    damageCity = true;
-                                }
-                            }
-
-                            if (damageCity) { // If pixel alpha is 255
-                                collisionObj = {
-                                    type: 'Invader vs City',
-                                    bullet: bullet,
-                                    bulletIndex: index,
-                                    target: city
-                                };
-                                this.collisions.push(collisionObj);
-                                // console.trace(collisionObj);
-                            }
+                        bulletCanvasInfo = {
+                            ctx: this.screen.ctx,
+                            x: 0,
+                            y: 0,
+                            width: this.screen.width,
+                            height: this.screen.height
                         }
-                    });
+
+                        targetCanvasInfo = {
+                            ctx: city.ctx,
+                            x: city.x,
+                            y: city.y,
+                            width: city.width,
+                            height: city.height
+                        }
+
+                        collisionInfo = this.collisionDetector.collisionInfo(bulletCanvasInfo, targetCanvasInfo, bullet, city);
+                        if (collisionInfo.didCollide) {
+                            const collision = {
+                                type: 'Invader vs City',
+                                bullet: bullet,
+                                bulletIndex: index,
+                                target: city,
+                                lookAhead: collisionInfo.lookAhead
+                            };
+                            this.collisions.push(collision);
+                            break;
+                        }
+                    };
                 }
             });
         }
@@ -176,10 +233,12 @@ export default class CollisionSystem {
     handleMothershipBulletCollisions = () => {
         let collisionInfo;
         let collisionObj;
+        let bulletCanvasInfo;
+        let targetCanvasInfo;
 
         this.bullets.bulletList.forEach((bullet, index) => {
             if (bullet.subType === 'mothership') {
-                collisionInfo = this.collisionDetector.collisionInfo(bullet, this.tank);
+                collisionInfo = this.collisionDetector.collisionInfo(bulletCanvasInfo, targetCanvasInfo, bullet, this.tank);
 
                 if (collisionInfo.didCollide && !this.tank.isAnimating) {
                     collisionObj = {
