@@ -40,7 +40,7 @@ class CollisionDetector {
             let missileTop = missile.y; // City y
             let missileBottom = missile.y + missile.height;
             let imgData;
-            let ctx = target.type === 'city' ? target.ctx : screen.ctx;
+            let ctx = target.type === 'city' ? target.ctx : targetCanvasInfo.ctx;
 
             const width = missile.width;
             const rowHeight = 1; // Height of rwo of pixels to check
@@ -54,7 +54,9 @@ class CollisionDetector {
                             const cityCtxHitY = missileTop - l - target.y - 1;
                             imgData = ctx.getImageData(cityHitX, cityCtxHitY, width, rowHeight);
                         } else {
-
+                            const targetHitX = Math.abs(missile.x + (missile.width / 2));
+                            const targetCtxHitY = missileTop - l - 1;
+                            imgData = ctx.getImageData(targetHitX, targetCtxHitY, width, rowHeight);
                         }
                         break;
                     case 'down':
@@ -63,11 +65,13 @@ class CollisionDetector {
                             const cityCtxHitY = missileBottom + l - target.y + 1;
                             imgData = ctx.getImageData(cityHitX, cityCtxHitY, width, rowHeight);
                         } else {
-
+                            const targetHitX = Math.abs(missile.x + (missile.width / 2));
+                            const targetCtxHitY = missileTop - l + 1;
+                            imgData = ctx.getImageData(targetHitX, targetCtxHitY, width, rowHeight);
                         }
                         break;
                 }
-                
+
                 for (let i = 0; i < imgData.data.length; i += 4) {
                     if (imgData.data[i + 3] === 255) {
                         didCollide = true;
