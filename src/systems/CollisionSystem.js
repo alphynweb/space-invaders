@@ -258,6 +258,21 @@ export default class CollisionSystem {
 
         this.bullets.bulletList.forEach((bullet, index) => {
             if (bullet.subType === 'mothership') {
+                bulletCanvasInfo = {
+                    ctx: this.screen.ctx,
+                    x: 0,
+                    y: 0,
+                    width: this.screen.width,
+                    height: this.screen.height
+                }
+
+                targetCanvasInfo = {
+                    ctx: this.screen.ctx,
+                    x: 0,
+                    y: 0,
+                    width: this.screen.width,
+                    height: this.screen.height
+                }
                 collisionInfo = this.collisionDetector.collisionInfo(bulletCanvasInfo, targetCanvasInfo, bullet, this.tank);
 
                 if (collisionInfo.didCollide && !this.tank.isAnimating) {
