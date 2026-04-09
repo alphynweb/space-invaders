@@ -213,6 +213,7 @@ export default class CollisionSystem {
                         }
 
                         collisionInfo = this.collisionDetector.collisionInfo(bulletCanvasInfo, targetCanvasInfo, bullet, city);
+
                         if (collisionInfo.didCollide) {
                             const collision = {
                                 type: 'Invader vs City',

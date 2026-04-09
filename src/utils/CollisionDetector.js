@@ -17,34 +17,20 @@ class CollisionDetector {
                         missile.y - i > target.y &&
                         (missile.x > target.x && missile.x < target.x - target.width || // Lh of missile is horizontally within target width
                             missile.x + missile.width > target.x && missile.x + missile.width < target.x + target.width); // Rh of missile is horizontally within target width
-
-                    // if (isIntersecting) {
-                    //     lookAhead = i;
-                    // };
                     break;
                 case 'down':
                     willIntersect =
                         missile.y + missile.height + i > target.y && // Missile bottom is below target top
-                        // missile.y + missile.height + i < target.y + target.height && // Missile bottom is above target bottom
                         (missile.x > target.x && missile.x < target.x - target.width || // Lh of missile is horizontally within target width
                             missile.x + missile.width > target.x && missile.x + missile.width < target.x + target.width); // Rh of missile is horizontally within target width
-
-                    // if (isIntersecting) {
-                    //     lookAhead = i;
-                    // };
                     break;
                 case 'left':
 
                 case 'right':
             }
-
-            // if (isIntersecting) {
-            //     lookAhead = i;
-            //     break;
-            // }
         }
 
-        if (willIntersect) { // Will intersect on teh next tick
+        if (willIntersect) { // Will intersect on the next tick
             // Establish lookahead by checking pixels in front of bullet to the same length as speed.
 
             // Area to check imagedata of a recangle vertically above the bullet which is bullet.width wide and bullet.speed tall. If collision detected, 
@@ -61,15 +47,27 @@ class CollisionDetector {
             let lookAhead = 0;
 
             for (let l = 0; l < missile.speed; l++) {
-                if (missile.direction === 'up') {
-                    imgData = ctx.getImageData(x, missileTop - l, width, rowHeight);
-                } else {
-                    if (target.type === 'city') {
-                        const cityHitX = Math.abs(missile.x - target.x);
-                        const cityCtxHitY = missileBottom + l - target.y;
-                        imgData = ctx.getImageData(cityHitX, cityCtxHitY, width, rowHeight);
-                    }
+                switch (missile.direction) {
+                    case 'up':
+                        if (target.type === 'city') {
+                            const cityHitX = Math.abs(missile.x + (missile.width / 2) - target.x);
+                            const cityCtxHitY = missileTop - l - target.y - 1;
+                            imgData = ctx.getImageData(cityHitX, cityCtxHitY, width, rowHeight);
+                        } else {
+
+                        }
+                        break;
+                    case 'down':
+                        if (target.type === 'city') {
+                            const cityHitX = Math.abs(missile.x + (missile.width / 2) - target.x);
+                            const cityCtxHitY = missileBottom + l - target.y + 1;
+                            imgData = ctx.getImageData(cityHitX, cityCtxHitY, width, rowHeight);
+                        } else {
+
+                        }
+                        break;
                 }
+                
                 for (let i = 0; i < imgData.data.length; i += 4) {
                     if (imgData.data[i + 3] === 255) {
                         didCollide = true;

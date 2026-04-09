@@ -409,7 +409,7 @@ export const BULLET = {
     configs: {
         tank: {
             direction: 'up',
-            speed: 10,
+            speed: 20,
             width: 6,
             height: 23,
             spriteInfo: {
