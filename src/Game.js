@@ -48,6 +48,12 @@ export default class Game {
     constructor() {
         this.eventEmitter = new EventEmitter();
 
+        const originalEmit = this.eventEmitter.emit;
+        this.eventEmitter.emit = function (event, ...args) {
+            console.log('event', event, args);
+            return originalEmit.call(this, event, ...args);
+        };
+
         this.cityConfig = CITY;
         this.cityCollisionMap = cityCollisionMap;
         this.textConfig = TEXT;
@@ -591,6 +597,7 @@ export default class Game {
         if (this.tank.animationType === 'normal') {
             if (this.lives.livesLeft <= 0) {
                 this.cities.clear();
+                this.gameOver.score = this.score;
                 this.gameOver.init();
                 this.gameStates.currentState = this.gameStates.over;
                 return;

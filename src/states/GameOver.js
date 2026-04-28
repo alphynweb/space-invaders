@@ -35,6 +35,7 @@ export default class GameOver {
 
     init = () => {
         this.buildTextObjects();
+        this.textObjectsIndex = 0;
         this.textObjects[0].status = 'started';
 
         const subType = 'startButton';
@@ -150,6 +151,8 @@ export default class GameOver {
     }
 
     cleanup = () => {
+        this.graphicsManager.clear();
+        this.textObjects = [];
         // this.eventEmitter.removeAllListeners('typewriterTextFinished');
     }
 }
