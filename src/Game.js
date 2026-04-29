@@ -87,7 +87,6 @@ export default class Game {
         this.mothershipMaxTime = this.mothershipConfig.configs['main'].timingMax;
         this.collisionInfo = null;
         this.now = null;
-        this.invaderMoveTime = this.invadersConfig.configs['wave1'].moveTime;
         this.isTankBullet = false;
         this.invaderGroupY = null;
         this.currentLevel = 1;
@@ -294,6 +293,7 @@ export default class Game {
     }
 
     setup = () => {
+        this.invaderMoveTime = this.invadersConfig.configs['wave1'].moveTime;
         this.score.reset();
         this.lives.reset();
         this.tank.reset();
@@ -503,6 +503,7 @@ export default class Game {
     }
 
     onStartGame = () => {
+        this.invaderMoveTime = this.invadersConfig.configs['wave1'].moveTime;
         this.volumeControlContainer.style.visibility = "visible";
         this.volumeControl.oninput = () => {
             this.soundManager.onSetVolume(this.volumeControl.value);
