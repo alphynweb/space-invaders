@@ -7,26 +7,38 @@ class CollisionDetector {
         let willIntersect = false;
         let didCollide = false; // true = on the next frame missile is within rectangular boundaries of target and now needs to check along number = speed pixel by pixel
 
-        // Use pixel speed to calculate whether it passes through object on next tick - check each value in front or beside it
+        const missileTop = missile.y;
+        const missileBottom = missile.y + missile.height;
+        const missileLeft = missile.x;
+        const missileRight = missile.x + missile.width;
+
+        const targetTop = target.y;
+        const targetBottom = target.y + target.height;
+        const targetLeft = target.x;
+        const targetRight = target.x + target.width;
+
+        let lookaheadCheckY;
+
         for (let i = 0; i < missile.speed; i++) {
-            // Check top of missile with missile going upwards
             switch (missile.direction) {
                 case 'up':
+                    lookaheadCheckY = missileTop - i;
+                    // check upwards from top of missile for collision with target hitbox
                     willIntersect =
-                        missile.y - i < target.y + target.height &&
-                        missile.y - i > target.y &&
-                        (missile.x > target.x && missile.x < target.x - target.width || // Lh of missile is horizontally within target width
-                            missile.x + missile.width > target.x && missile.x + missile.width < target.x + target.width); // Rh of missile is horizontally within target width
+                        lookaheadCheckY < targetBottom && lookaheadCheckY > targetTop &&
+                        missileRight > targetLeft && missileLeft < targetRight;
                     break;
                 case 'down':
+                    lookaheadCheckY = missileBottom + i;
+                    // check downwards from bottom of missile for collision with target hitbox
                     willIntersect =
-                        missile.y + missile.height + i > target.y && // Missile bottom is below target top
-                        (missile.x > target.x && missile.x < target.x - target.width || // Lh of missile is horizontally within target width
-                            missile.x + missile.width > target.x && missile.x + missile.width < target.x + target.width); // Rh of missile is horizontally within target width
+                        lookaheadCheckY < targetBottom && lookaheadCheckY > targetTop &&
+                        missileRight > targetLeft && missileLeft < targetRight;
                     break;
-                case 'left':
-
-                case 'right':
+            }
+            if (willIntersect) {
+                // debugger;
+                break;
             }
         }
 
@@ -36,7 +48,6 @@ class CollisionDetector {
             // Area to check imagedata of a recangle vertically above the bullet which is bullet.width wide and bullet.speed tall. If collision detected, 
             // then send collision data of the place where a collision was detected in teh lookahead and that is the bottom left coord of the city damage sprite
 
-            // let x = missile.x; // Bullet x
             let missileTop = missile.y; // City y
             let missileBottom = missile.y + missile.height;
             let imgData;

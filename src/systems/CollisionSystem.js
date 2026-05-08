@@ -23,6 +23,8 @@ export default class CollisionSystem {
         this.bullets = bullets;
         this.cities = cities;
 
+        this.invaders.invaderList = this.invaders.invaderList.reverse();
+
         this.collisions = [];
     }
 
@@ -53,8 +55,10 @@ export default class CollisionSystem {
         if (tankBulletIndex > -1) {
             const tankBullet = this.bullets.bulletList[tankBulletIndex];
 
+            const invaderList = this.invaders.invaderList;
+
             // Tank bullet vs invaders
-            for (const invader of this.invaders.invaderList) {
+            for (const invader of invaderList) {
                 if (invader.animationType === 'exploding') return;
 
                 bulletCanvasInfo = {
@@ -84,7 +88,7 @@ export default class CollisionSystem {
                             target: invader
                         };
                         this.collisions.push(collision);
-                        break;
+                        // break;
                     }
                 }
             };
