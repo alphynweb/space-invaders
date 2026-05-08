@@ -624,7 +624,6 @@ export default class Game {
     }
 
     createInvaderBullets = () => {
-        // return;
         // Check how many invader bullets are currently in play
         let invaderBullets = this.bullets.bulletList.filter((bullet) => bullet.subType.includes('invader'));
 
@@ -666,7 +665,6 @@ export default class Game {
     }
 
     createMothershipBullets = () => {
-        return;
         // Create mothership bomb (Fired when mothership is above tank)
         const mothershipCenter = this.mothership.x + (this.mothership.width / 2);
         const tankCenter = this.tank.x + (this.tank.width / 2);
