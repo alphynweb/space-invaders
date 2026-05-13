@@ -8,7 +8,7 @@ export default class Lives {
         this.livesLeft = this.config.lives;
     }
 
-    lose = () => {
-        this.livesLeft--;
+    lose = (noOfLivesToLose = 1) => {
+        this.livesLeft -= noOfLivesToLose;
     }
 }

@@ -15,7 +15,7 @@ export const LIVES = {
         main: {
             x: 600,
             y: 20,
-            lives: 1,
+            lives:3,
             livesGap: 10, // Space between lives at top of screen
             spriteInfo: {
                 normal: {
@@ -423,7 +423,7 @@ export const BULLET = {
         },
         invader1: {
             direction: 'down',
-            speed: 20,
+            speed: 10,
             width: 4,
             height: 10,
             spriteInfo: {

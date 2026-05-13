@@ -410,7 +410,10 @@ export default class Game {
 
             },
             "Invaders vs Bottom": (collision) => {
-                this.gameStates.currentState = this.gameStates.over;
+                this.tank.destroy();
+                this.lives.lose(this.lives.livesLeft);
+                this.soundManager.play('tankExplosion');
+                this.gameStates.currentState = this.gameStates.lose;
             }
         }
 
@@ -595,25 +598,24 @@ export default class Game {
     onLoseLife = () => {
         const delta = this.gameLoop.delta;
         this.tank.update(delta);
-        if (this.tank.animationType === 'normal') {
-            if (this.lives.livesLeft <= 0) {
-                this.cities.clear();
-                this.gameOver.score = this.score;
-                this.gameOver.init();
-                this.gameStates.currentState = this.gameStates.over;
-                return;
-            }
-
-            this.tank = null;
-            this.tank = new Tank(
-                this.tankConfig.type,
-                'main',
-                this.tankConfig.configs,
-                this.screen
-            );
-            this.collisionSystem.tank = this.tank;
-            this.gameStates.currentState = this.gameStates.run;
+        if (this.tank.animationType !== 'normal') return;
+        if (this.lives.livesLeft <= 0) {
+            this.cities.clear();
+            this.gameOver.score = this.score;
+            this.gameOver.init();
+            this.gameStates.currentState = this.gameStates.over;
+            return;
         }
+
+        this.tank = null;
+        this.tank = new Tank(
+            this.tankConfig.type,
+            'main',
+            this.tankConfig.configs,
+            this.screen
+        );
+        this.collisionSystem.tank = this.tank;
+        this.gameStates.currentState = this.gameStates.run;
     }
 
     onEndGame = () => {
@@ -624,6 +626,7 @@ export default class Game {
     }
 
     createInvaderBullets = () => {
+        return;
         // Check how many invader bullets are currently in play
         let invaderBullets = this.bullets.bulletList.filter((bullet) => bullet.subType.includes('invader'));
 
@@ -665,6 +668,7 @@ export default class Game {
     }
 
     createMothershipBullets = () => {
+        return;
         // Create mothership bomb (Fired when mothership is above tank)
         const mothershipCenter = this.mothership.x + (this.mothership.width / 2);
         const tankCenter = this.tank.x + (this.tank.width / 2);

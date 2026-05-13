@@ -296,7 +296,7 @@ export default class CollisionSystem {
         let collisionObj;
 
         for (let invader of this.invaders.invaderList) {
-            if (invader.y + invader.height >= this.screen.height) {
+            if (invader.y + invader.height >= this.tank.y) {
                 console.log(this.screen.height);
                 console.log(invader.y + invader.height);
                 collisionObj = {
