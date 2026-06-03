@@ -75,6 +75,7 @@ export default class Game {
 
         this.screen.render();
 
+        this.wave = 1;
         this.lives = null;
         this.livesLeft = this.livesConfig.lives;
         this.tank = null;
@@ -231,12 +232,11 @@ export default class Game {
     };
 
     setupDefinitions = () => {
-        const currentLevel = Math.min(this.currentLevel, this.maxLevel);
         const configs = this.invadersConfig;
         this.invadersDefinition = new InvadersDefinition();
         this.invadersDefinition.setLevelConfig(
             configs,
-            currentLevel,
+            this.wave,
         );
     }
 
@@ -255,7 +255,7 @@ export default class Game {
         this.bullets.initializeLevel();
 
         this.now = 0;
-        this.invaderMoveTime = this.invadersConfig.configs['wave1'].moveTime - this.invadersConfig.configs['wave1'].speedIncrease;
+        this.invaderMoveTime = this.invadersConfig.configs['wave' + this.wave].moveTime - this.invadersConfig.configs['wave' + this.wave].speedIncrease;
     }
 
     setupGraphics = async (graphicsSpriteUrl) => {
@@ -293,7 +293,7 @@ export default class Game {
     }
 
     setup = () => {
-        this.invaderMoveTime = this.invadersConfig.configs['wave1'].moveTime;
+        this.invaderMoveTime = this.invadersConfig.configs['wave' + this.wave].moveTime;
         this.score.reset();
         this.lives.reset();
         this.tank.reset();
@@ -320,7 +320,7 @@ export default class Game {
             "Tank vs Invader": (collision) => {
                 const invader = collision.target;
                 this.score.increase(collision.target.score);
-                this.invaderMoveTime -= this.invadersConfig.configs['wave1'].speedIncrease;
+                this.invaderMoveTime -= this.invadersConfig.configs['wave' + this.wave].speedIncrease;
                 this.bullets.removeBullet(collision.bulletIndex);
                 this.soundManager.play('invaderExplosion');
                 invader.destroy();
@@ -506,7 +506,7 @@ export default class Game {
     }
 
     onStartGame = () => {
-        this.invaderMoveTime = this.invadersConfig.configs['wave1'].moveTime;
+        this.invaderMoveTime = this.invadersConfig.configs['wave' + this.wave].moveTime;
         this.volumeControlContainer.style.visibility = "visible";
         this.volumeControl.oninput = () => {
             this.soundManager.onSetVolume(this.volumeControl.value);
@@ -576,12 +576,14 @@ export default class Game {
         this.startLevel.render();
         this.startLevel.update(this.gameLoop.delta);
         if (!this.startLevel.state) {
+            this.wave++;
+            this.wave = Math.min(this.wave, this.maxLevel);
             this.invaders.reset();
             this.setupDefinitions();
             this.invaders.initializeLevel(
                 this.invadersDefinition.getLevelConfig()
             );
-            this.invaderMoveTime = this.invadersConfig.configs['wave1'].moveTime;
+            this.invaderMoveTime = this.invadersConfig.configs['wave' + this.wave].moveTime;
             this.cities.reset();
             this.cities.initializeLevel();
             this.cities.cityList.forEach(city => {
