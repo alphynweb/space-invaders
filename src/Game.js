@@ -581,6 +581,7 @@ export default class Game {
             this.invaders.initializeLevel(
                 this.invadersDefinition.getLevelConfig()
             );
+            this.invaderMoveTime = this.invadersConfig.configs['wave1'].moveTime;
             this.cities.reset();
             this.cities.initializeLevel();
             this.cities.cityList.forEach(city => {
