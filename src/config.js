@@ -15,7 +15,7 @@ export const LIVES = {
         main: {
             x: 600,
             y: 20,
-            lives:3,
+            lives: 3,
             livesGap: 10, // Space between lives at top of screen
             spriteInfo: {
                 normal: {
@@ -145,7 +145,7 @@ export const INVADERS = {
             maxY: 300,
             columnWidth: 50,
             rowHeight: 50,
-            columns: 11,
+            columns: 1,
             columnGap: 5,
             rowGap: 10,
             moveTime: 1000, // Time between movement
@@ -409,7 +409,7 @@ export const BULLET = {
     configs: {
         tank: {
             direction: 'up',
-            speed:20,
+            speed: 20,
             width: 6,
             height: 23,
             spriteInfo: {

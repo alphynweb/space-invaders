@@ -1,5 +1,5 @@
 export default class GraphicsManager {
-    constructor(eventEmitter, spriteUrl, entityMap, ctx) {
+    constructor(eventEmitter, spriteUrl, entityMap, ctx, gameArea) {
         this.eventEmitter = eventEmitter;
         this.spriteUrl = spriteUrl;
         this.entityMap = entityMap;
@@ -12,14 +12,11 @@ export default class GraphicsManager {
         this.typewriterTextX = 0;
         this.typewriterText = '';
         this.typewriterTextEnd = false;
+        this.gameArea = gameArea;
     }
 
     async init() {
-        try {
-            this.sprite = await this.loadImage(this.spriteUrl);
-        } catch (err) {
-            console.log(err);
-        }
+        await this.resetSprite();
     }
 
     async loadImage(imageUrl) {
@@ -29,6 +26,14 @@ export default class GraphicsManager {
             img.onerror = () => reject("Image failed to load");
             img.src = imageUrl;
         });
+    }
+
+    async resetSprite() {
+        try {
+            this.sprite = await this.loadImage(this.spriteUrl);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     render = (entity) => {
@@ -106,6 +111,12 @@ export default class GraphicsManager {
                 this.clear();
             }
         }
+    }
+
+    renderBackground = () => {
+        // this.gameArea.style.background = `url(/graphics/sprite-wave-${wave}.png) 0 -700px no-repeat`;
+        // console.log("Changing game area to", `/graphics/sprite-wave-${wave}.png`);
+        this.gameArea.style.background = `url(${this.spriteUrl}) 0 -700px no-repeat`;  
     }
 
     renderSprite = (spriteInfo, x, y) => {

@@ -68,6 +68,7 @@ export default class Game {
 
         this.livesLeft = this.livesConfig.lives;
         this.maxLevel = Object.keys(this.invadersConfig.configs).length;
+        this.wave = 1;
 
         this.screen = Screen();
         this.screen.ctx.textAlign = 'center';
@@ -75,7 +76,7 @@ export default class Game {
 
         this.screen.render();
 
-        this.wave = 1;
+        this.graphicsSprite = 'sprite-wave-' + this.wave + '.png';
         this.lives = null;
         this.livesLeft = this.livesConfig.lives;
         this.tank = null;
@@ -93,6 +94,7 @@ export default class Game {
         this.currentLevel = 1;
         this.collisionDetector = collisionDetector;
 
+        this.gameArea = document.getElementById('gameArea');
         this.screenCanvas = document.getElementById('screenCanvas');
 
         this.gameLoop = new GameLoop(this.onTick);
@@ -117,7 +119,7 @@ export default class Game {
     }
 
     init = async () => {
-        await this.setupGraphics('/graphics/graphicsSprite.png');
+        await this.setupGraphics('/graphics/' + this.graphicsSprite);
         await this.graphicsManager.init();
 
         await this.setupAudio('/audio/audioSprite.mp3');
@@ -273,8 +275,12 @@ export default class Game {
             this.eventEmitter,
             graphicsSpriteUrl,
             entityMap,
-            ctx
+            ctx,
+            this.gameArea
         );
+
+        this.graphicsManager.init();
+        this.graphicsManager.renderBackground();
     }
 
     setupAudio = async (audioSpriteUrl) => {
@@ -571,13 +577,17 @@ export default class Game {
         }
     }
 
-    onStartNewLevel = () => {
+    onStartNewLevel = async () => {
         this.screen.clear();
         this.startLevel.render();
         this.startLevel.update(this.gameLoop.delta);
         if (!this.startLevel.state) {
             this.wave++;
             this.wave = Math.min(this.wave, this.maxLevel);
+
+            this.graphicsManager.spriteUrl = '/graphics/sprite-wave-' + this.wave + '.png';
+            await this.graphicsManager.resetSprite();
+
             this.invaders.reset();
             this.setupDefinitions();
             this.invaders.initializeLevel(
@@ -592,6 +602,9 @@ export default class Game {
             this.mothership.reset();
             this.bullets.initializeLevel();
 
+            this.graphicsManager.renderBackground();
+            // await this.graphicsManager.init();
+
             this.gameStates.currentState = this.gameStates.run;
         }
 
@@ -600,7 +613,6 @@ export default class Game {
 
     onLoseLife = () => {
         const delta = this.gameLoop.delta;
-        this.tank.update(delta);
         if (this.tank.animationType !== 'normal') return;
         if (this.lives.livesLeft <= 0) {
             this.cities.clear();
