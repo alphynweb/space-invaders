@@ -19,8 +19,8 @@ export const LIVES = {
             livesGap: 10, // Space between lives at top of screen
             spriteInfo: {
                 normal: {
-                    x: 0,
-                    y: 0,
+                    x: 1224,
+                    y: 1034,
                     width: 52,
                     height: 32
                 }
@@ -51,14 +51,14 @@ export const BUTTON = {
     type: 'button',
     configs: {
         startButton: {
-            x: 200,
-            y: 500,
+            x: 40,
+            y: 1900,
             width: 200,
             height: 50,
             spriteInfo: {
                 normal: {
-                    x: 0,
-                    y: 463,
+                    x: 40,
+                    y: 1900,
                     width: 120,
                     height: 37
                 },
@@ -91,21 +91,21 @@ export const TANK = {
             explosionDuration: 2000,
             spriteInfo: {
                 normal: {
-                    x: 0,
-                    y: 0,
+                    x: 1224,
+                    y: 1034,
                     width: 52,
                     height: 32
                 },
                 shooting: {
-                    x: 0,
-                    y: 0,
+                    x: 1224,
+                    y: 1034,
                     width: 52,
                     height: 32
                 },
                 exploding: {
-                    x: 756,
-                    y: 108,
-                    width: 44,
+                    x: 1129,
+                    y: 1138,
+                    width: 43,
                     height: 26
                 }
             }
@@ -123,10 +123,10 @@ export const CITY = {
             no: 4,
             indent: 50, // Space between outer cities and edge of screen
             spriteInfo: {
-                x: 52,
-                y: 0,
-                damageX: 52,
-                damageY: 200,
+                x: 1106,
+                y: 1018,
+                damageX: 1064,
+                damageY: 1066,
                 damageWidth: 20,
                 damageHeight: 20
             }
@@ -150,13 +150,13 @@ export const INVADERS = {
             rowGap: 10,
             moveTime: 1000, // Time between movement
             speedIncrease: 17,
-            explosionFrames: 5,
+            explosionFrames: 3,
             formation: [
                 { subType: 'invader1', rowNo: 1 },
-                { subType: 'invader1', rowNo: 2 },
-                { subType: 'invader2', rowNo: 3 },
-                { subType: 'invader2', rowNo: 4 },
-                { subType: 'invader3', rowNo: 5 }
+                // { subType: 'invader1', rowNo: 2 },
+                // { subType: 'invader2', rowNo: 3 },
+                // { subType: 'invader2', rowNo: 4 },
+                // { subType: 'invader3', rowNo: 5 }
             ]
         },
         wave2: {
@@ -174,10 +174,10 @@ export const INVADERS = {
             speedIncrease: 17,
             explosionFrames: 5,
             formation: [
-                { subType: 'invader1', rowNo: 1 },
-                { subType: 'invader1', rowNo: 2 },
-                { subType: 'invader2', rowNo: 3 },
-                { subType: 'invader2', rowNo: 4 },
+                // { subType: 'invader1', rowNo: 1 },
+                // { subType: 'invader1', rowNo: 2 },
+                // { subType: 'invader2', rowNo: 3 },
+                // { subType: 'invader2', rowNo: 4 },
                 { subType: 'invader3', rowNo: 5 }
             ]
         },
@@ -197,8 +197,8 @@ export const INVADERS = {
             speedIncrease: 17,
             explosionFrames: 5,
             formation: [
-                { subType: 'invader1', rowNo: 1 },
-                { subType: 'invader1', rowNo: 2 },
+                // { subType: 'invader1', rowNo: 1 },
+                // { subType: 'invader1', rowNo: 2 },
                 { subType: 'invader2', rowNo: 3 },
                 { subType: 'invader2', rowNo: 4 },
                 { subType: 'invader3', rowNo: 5 }
@@ -219,57 +219,28 @@ export const INVADER = {
             spriteInfo: {
                 normal: [
                     {
-                        x: 140,
-                        y: 0,
+                        x: 134,
+                        y: 10,
                         width: 32,
                         height: 32
                     },
                     {
-                        x: 140,
-                        y: 32,
+                        x: 134,
+                        y: 60,
                         width: 32,
                         height: 32
                     }
                 ],
                 exploding: {
-                    x: 756,
-                    y: 0,
-                    width: 44,
+                    x: 1129,
+                    y: 1138,
+                    width: 43,
                     height: 26
                 }
             }
         },
 
         invader2: {
-            width: 44,
-            height: 32,
-            score: 50,
-            animationType: 'normal',
-            explosionDuration: 500,
-            spriteInfo: {
-                normal: [
-                    {
-                        x: 172,
-                        y: 0,
-                        width: 44,
-                        height: 32
-                    },
-                    {
-                        x: 172,
-                        y: 32,
-                        width: 44,
-                        height: 32
-                    }
-                ],
-                exploding: {
-                    x: 756,
-                    y: 0,
-                    width: 44,
-                    height: 26
-                }
-            }
-        },
-        invader3: {
             width: 48,
             height: 32,
             score: 50,
@@ -278,22 +249,51 @@ export const INVADER = {
             spriteInfo: {
                 normal: [
                     {
-                        x: 216,
-                        y: 0,
+                        x: 226,
+                        y: 10,
                         width: 48,
                         height: 32
                     },
                     {
-                        x: 216,
-                        y: 32,
+                        x: 226,
+                        y: 60,
+                        width: 44,
+                        height: 32
+                    }
+                ],
+                exploding: {
+                    x: 1129,
+                    y: 1138,
+                    width: 43,
+                    height: 26
+                }
+            }
+        },
+        invader3: {
+            width: 42,
+            height: 32,
+            score: 50,
+            animationType: 'normal',
+            explosionDuration: 500,
+            spriteInfo: {
+                normal: [
+                    {
+                        x: 329,
+                        y: 10,
+                        width: 42,
+                        height: 32
+                    },
+                    {
+                        x: 329,
+                        y: 60,
                         width: 48,
                         height: 32
                     },
                 ],
                 exploding: {
-                    x: 756,
-                    y: 0,
-                    width: 44,
+                    x: 1129,
+                    y: 1138,
+                    width: 43,
                     height: 26
                 }
             }
@@ -321,40 +321,40 @@ export const MOTHERSHIP = {
             spriteInfo: {
                 normal: [
                     {
-                        x: 332,
-                        y: 0,
+                        x: 16,
+                        y: 13,
                         width: 68,
                         height: 27,
                     },
                     {
-                        x: 332,
-                        y: 27,
+                        x: 16,
+                        y: 63,
                         width: 68,
                         height: 27,
                     },
                     {
-                        x: 332,
-                        y: 54,
+                        x: 16,
+                        y: 113,
                         width: 68,
                         height: 27,
                     },
                     {
-                        x: 332,
-                        y: 81,
+                        x: 16,
+                        y: 163,
                         width: 68,
                         height: 27,
                     },
                     {
-                        x: 332,
-                        y: 81,
+                        x: 16,
+                        y: 213,
                         width: 68,
                         height: 27,
                     }
                 ],
                 exploding: {
-                    x: 756,
-                    y: 81,
-                    width: 44,
+                    x: 1129,
+                    y: 1138,
+                    width: 43,
                     height: 26
                 }
             },
@@ -410,14 +410,14 @@ export const BULLET = {
         tank: {
             direction: 'up',
             speed: 20,
-            width: 6,
-            height: 23,
+            width: 4,
+            height: 16,
             spriteInfo: {
                 normal: {
-                    x: 404,
-                    y: 0,
-                    width: 6,
-                    height: 23
+                    x: 1323,
+                    y: 1017,
+                    width: 4,
+                    height: 16
                 }
             }
         },
@@ -425,13 +425,13 @@ export const BULLET = {
             direction: 'down',
             speed: 10,
             width: 4,
-            height: 10,
+            height: 11,
             spriteInfo: {
                 normal: {
-                    x: 420,
-                    y: 0,
+                    x: 1373,
+                    y: 1020,
                     width: 4,
-                    height: 10
+                    height: 11
                 }
             }
         },
@@ -439,13 +439,13 @@ export const BULLET = {
             direction: 'down',
             speed: 4,
             width: 4,
-            height: 10,
+            height: 11,
             spriteInfo: {
                 normal: {
-                    x: 440,
-                    y: 0,
+                    x: 1423,
+                    y: 1019,
                     width: 4,
-                    height: 10
+                    height: 11
                 }
             }
         },
@@ -453,13 +453,13 @@ export const BULLET = {
             direction: 'down',
             speed: 4,
             width: 4,
-            height: 10,
+            height: 11,
             spriteInfo: {
                 normal: {
-                    x: 460,
-                    y: 0,
+                    x: 1473,
+                    y: 1019,
                     width: 4,
-                    height: 10
+                    height: 11
                 }
             }
         },

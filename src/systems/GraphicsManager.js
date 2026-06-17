@@ -16,7 +16,7 @@ export default class GraphicsManager {
     }
 
     async init() {
-        await this.resetSprite();
+        await this.setSprite();
     }
 
     async loadImage(imageUrl) {
@@ -28,7 +28,7 @@ export default class GraphicsManager {
         });
     }
 
-    async resetSprite() {
+    async setSprite() {
         try {
             this.sprite = await this.loadImage(this.spriteUrl);
         } catch (err) {
@@ -114,9 +114,7 @@ export default class GraphicsManager {
     }
 
     renderBackground = () => {
-        // this.gameArea.style.background = `url(/graphics/sprite-wave-${wave}.png) 0 -700px no-repeat`;
-        // console.log("Changing game area to", `/graphics/sprite-wave-${wave}.png`);
-        this.gameArea.style.background = `url(${this.spriteUrl}) 0 -700px no-repeat`;  
+        this.gameArea.style.background = `url(${this.spriteUrl}) 0 -1000px no-repeat`;  
     }
 
     renderSprite = (spriteInfo, x, y) => {

@@ -586,7 +586,7 @@ export default class Game {
             this.wave = Math.min(this.wave, this.maxLevel);
 
             this.graphicsManager.spriteUrl = '/graphics/sprite-wave-' + this.wave + '.png';
-            await this.graphicsManager.resetSprite();
+            await this.graphicsManager.setSprite();
 
             this.invaders.reset();
             this.setupDefinitions();
@@ -641,7 +641,7 @@ export default class Game {
     }
 
     createInvaderBullets = () => {
-        return;
+        // return;
         // Check how many invader bullets are currently in play
         let invaderBullets = this.bullets.bulletList.filter((bullet) => bullet.subType.includes('invader'));
 
