@@ -524,6 +524,7 @@ export default class Game {
     }
 
     onRunGame = (currentTime) => {
+        console.log("Running game");
         this.purge();
         this.checkCollisions();
         this.bullets.move();
@@ -613,7 +614,8 @@ export default class Game {
 
     onLoseLife = () => {
         const delta = this.gameLoop.delta;
-        if (this.tank.animationType !== 'normal') return;
+        this.tank.update(delta);
+        if (this.tank.animationType === 'exploding') return;
         if (this.lives.livesLeft <= 0) {
             this.cities.clear();
             this.gameOver.score = this.score;
@@ -629,6 +631,7 @@ export default class Game {
             this.tankConfig.configs,
             this.screen
         );
+
         this.collisionSystem.tank = this.tank;
         this.gameStates.currentState = this.gameStates.run;
     }
