@@ -654,7 +654,7 @@ export default class Game {
         let bottomInv;
 
         // If it's less than 2(? Arbitrary) for example, then create more randomly so there are always 2
-        let noBulletsToCreate = Math.min(this.invaders.invaderList.length - invaderBullets.length, this.invadersDefinition.bullets);
+        let noBulletsToCreate = Math.min(this.invaders.invaderList.length - invaderBullets.length, this.invadersDefinition.bullets - invaderBullets);
         if (noBulletsToCreate <= 0) return;
 
         for (let i = 0; i < noBulletsToCreate; i++) {
