@@ -1,15 +1,15 @@
 import { SCREEN } from '../../config';
 
 export default class Tank {
-    constructor(type, subType, configs, screen) {
+    constructor(startX, type, subType, configs, screen) {
         const config = configs[subType];
         this.animationType = 'normal';
         this.type = type;
         this.subType = subType;
         this.width = config.width;
         this.height = config.height;
-        this.startX = config.x;
-        this.x = config.x;
+        this.startX = startX;
+        this.x = startX;
         this.y = config.y;
         this.isActive = true;
         this.speed = config.speed;

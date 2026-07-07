@@ -143,12 +143,7 @@ export default class Game {
         this.score = new Score();
         this.lives = new Lives(this.livesConfig.configs);
 
-        this.tank = new Tank(
-            this.tankConfig.type,
-            'main',
-            this.tankConfig.configs,
-            this.screen
-        );
+
 
         this.invaders = new Invaders(
             this.invadersConfig,
@@ -173,6 +168,14 @@ export default class Game {
                 this.tankConfig,
                 this.bulletConfig
             ]
+        );
+
+        this.tank = new Tank(
+            this.tankStartX,
+            this.tankConfig.type,
+            'main',
+            this.tankConfig.configs,
+            this.screen
         );
 
         this.collisionSystem = new CollisionSystem(
@@ -243,7 +246,6 @@ export default class Game {
     }
 
     setupEntities = () => {
-        this.tank.initializeLevel();
 
         this.invaders.initializeLevel(
             this.invadersDefinition.getLevelConfig()
@@ -253,6 +255,15 @@ export default class Game {
         this.resetMothershipSpawnTime();
 
         this.cities.initializeLevel();
+
+        // Use x coord of first city to establish tank startX
+        const city0 = this.cities.cityList[0];
+        const city0X = city0.x;
+        const city0Middle = city0.x + (city0.width / 2);
+        this.tankStartX = city0Middle;
+        this.tank.startX = this.tankStartX;
+
+        this.tank.initializeLevel();
 
         this.bullets.initializeLevel();
 
@@ -626,6 +637,7 @@ export default class Game {
 
         this.tank = null;
         this.tank = new Tank(
+            this.tankStartX,
             this.tankConfig.type,
             'main',
             this.tankConfig.configs,
