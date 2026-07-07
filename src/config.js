@@ -146,17 +146,18 @@ export const INVADERS = {
             columnWidth: 50,
             rowHeight: 50,
             columns: 11,
-            columnGap: 5,
+            columnGap: 20,
             rowGap: 10,
             moveTime: 1000, // Time between movement
             speedIncrease: 17,
             explosionFrames: 3,
             formation: [
                 { subType: 'invader1', rowNo: 1 },
-                { subType: 'invader1', rowNo: 2 },
+                { subType: 'invader2', rowNo: 2 },
                 { subType: 'invader2', rowNo: 3 },
-                { subType: 'invader2', rowNo: 4 },
-                { subType: 'invader3', rowNo: 5 }
+                { subType: 'invader3', rowNo: 4 },
+                { subType: 'invader3', rowNo: 5 },
+                { subType: 'invader3', rowNo: 6 }
             ]
         },
         wave2: {
@@ -175,10 +176,11 @@ export const INVADERS = {
             explosionFrames: 5,
             formation: [
                 { subType: 'invader1', rowNo: 1 },
-                { subType: 'invader1', rowNo: 2 },
+                { subType: 'invader2', rowNo: 2 },
                 { subType: 'invader2', rowNo: 3 },
-                { subType: 'invader2', rowNo: 4 },
-                { subType: 'invader3', rowNo: 5 }
+                { subType: 'invader3', rowNo: 4 },
+                { subType: 'invader3', rowNo: 5 },
+                { subType: 'invader3', rowNo: 6 }
             ]
         },
         wave3: {
@@ -220,20 +222,20 @@ export const INVADER = {
                 normal: [
                     {
                         x: 134,
-                        y: 10,
+                        y: 9,
                         width: 32,
                         height: 32
                     },
                     {
                         x: 134,
-                        y: 60,
+                        y: 59,
                         width: 32,
                         height: 32
                     }
                 ],
                 exploding: {
                     x: 1129,
-                    y: 1138,
+                    y: 1238,
                     width: 43,
                     height: 26
                 }
@@ -249,21 +251,21 @@ export const INVADER = {
             spriteInfo: {
                 normal: [
                     {
-                        x: 226,
-                        y: 10,
-                        width: 48,
+                        x: 328,
+                        y: 9,
+                        width: 42,
                         height: 32
                     },
                     {
-                        x: 226,
-                        y: 60,
-                        width: 44,
+                        x: 328,
+                        y: 59,
+                        width: 48,
                         height: 32
-                    }
+                    },
                 ],
                 exploding: {
                     x: 1129,
-                    y: 1138,
+                    y: 1338,
                     width: 43,
                     height: 26
                 }
@@ -276,23 +278,24 @@ export const INVADER = {
             animationType: 'normal',
             explosionDuration: 500,
             spriteInfo: {
+
                 normal: [
                     {
-                        x: 329,
-                        y: 10,
-                        width: 42,
-                        height: 32
+                        x: 226,
+                        y: 8,
+                        width: 48,
+                        height: 34
                     },
                     {
-                        x: 329,
-                        y: 60,
+                        x: 226,
+                        y: 58,
                         width: 48,
-                        height: 32
-                    },
+                        height: 34
+                    }
                 ],
                 exploding: {
                     x: 1129,
-                    y: 1138,
+                    y: 1438,
                     width: 43,
                     height: 26
                 }
