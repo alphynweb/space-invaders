@@ -153,11 +153,11 @@ export const INVADERS = {
             explosionFrames: 3,
             formation: [
                 { subType: 'invader1', rowNo: 1 },
-                { subType: 'invader2', rowNo: 2 },
-                { subType: 'invader2', rowNo: 3 },
-                { subType: 'invader3', rowNo: 4 },
-                { subType: 'invader3', rowNo: 5 },
-                { subType: 'invader3', rowNo: 6 }
+                // { subType: 'invader2', rowNo: 2 },
+                // { subType: 'invader2', rowNo: 3 },
+                // { subType: 'invader3', rowNo: 4 },
+                // { subType: 'invader3', rowNo: 5 },
+                // { subType: 'invader3', rowNo: 6 }
             ]
         },
         wave2: {
@@ -176,11 +176,11 @@ export const INVADERS = {
             explosionFrames: 5,
             formation: [
                 { subType: 'invader1', rowNo: 1 },
-                { subType: 'invader2', rowNo: 2 },
-                { subType: 'invader2', rowNo: 3 },
-                { subType: 'invader3', rowNo: 4 },
-                { subType: 'invader3', rowNo: 5 },
-                { subType: 'invader3', rowNo: 6 }
+                // { subType: 'invader2', rowNo: 2 },
+                // { subType: 'invader2', rowNo: 3 },
+                // { subType: 'invader3', rowNo: 4 },
+                // { subType: 'invader3', rowNo: 5 },
+                // { subType: 'invader3', rowNo: 6 }
             ]
         },
         wave3: {
@@ -200,10 +200,10 @@ export const INVADERS = {
             explosionFrames: 5,
             formation: [
                 { subType: 'invader1', rowNo: 1 },
-                { subType: 'invader1', rowNo: 2 },
-                { subType: 'invader2', rowNo: 3 },
-                { subType: 'invader2', rowNo: 4 },
-                { subType: 'invader3', rowNo: 5 }
+                // { subType: 'invader1', rowNo: 2 },
+                // { subType: 'invader2', rowNo: 3 },
+                // { subType: 'invader2', rowNo: 4 },
+                // { subType: 'invader3', rowNo: 5 }
             ]
         }
     }

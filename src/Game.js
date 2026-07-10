@@ -119,10 +119,10 @@ export default class Game {
     }
 
     init = async () => {
-        await this.setupGraphics('/graphics/' + this.graphicsSprite);
+        await this.setupGraphics(`${import.meta.env.BASE_URL}graphics/${this.graphicsSprite}`);
         await this.graphicsManager.init();
 
-        await this.setupAudio('/audio/audioSprite.mp3');
+        await this.setupAudio(`${import.meta.env.BASE_URL}audio/audioSprite.mp3`);
         await this.soundManager.init();
 
         this.soundManager.mute();
