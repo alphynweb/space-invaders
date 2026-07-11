@@ -26,7 +26,7 @@ import InvadersDefinition from './definitions/InvadersDefinition';
 import Screen from './modules/Screen/Screen';
 import Tank from './modules/Tank/Tank';
 // import Invader from './modules/Invader/Invader';
-import Invaders from './modules/invaders/Invaders';
+import Invaders from './modules/Invaders/Invaders';
 import Bullets from './modules/Bullets/Bullets';
 import Cities from './modules/Cities/Cities';
 import cityCollisionMap from './modules/City/cityCollisionMap';
