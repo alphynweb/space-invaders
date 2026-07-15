@@ -66,6 +66,9 @@ export default class Game {
         this.livesConfig = LIVES;
         this.screenConfig = SCREEN;
 
+        this.gameWidth = this.screenConfig.configs.main.width;
+        this.gameHeight = this.screenConfig.configs.main.height;
+
         this.livesLeft = this.livesConfig.lives;
         this.maxLevel = Object.keys(this.invadersConfig.configs).length;
         this.wave = 1;
@@ -135,8 +138,19 @@ export default class Game {
 
         inputHandler.init();
 
+        this.scaleCanvas();
+
+        window.addEventListener('resize', () => {
+            this.scaleCanvas();
+        });
+
         this.gameStates.currentState = this.gameStates.intro;
         this.gameLoop.start();
+    }
+
+    scaleCanvas = () => {
+        const scale = Math.min(window.innerWidth / this.gameWidth, window.innerHeight / this.gameHeight);
+        this.gameArea.style.transform = `scale(${scale})`;
     }
 
     setupInstances = () => {

@@ -5,19 +5,33 @@
 	<meta charset="utf-8">
 	<title>Invaders</title>
 	<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+			/* overflow: hidden; */
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
 		#gameArea {
-			margin: auto;
+			/* margin: auto; */
 			z-index: 50;
-			/* background: url(public/graphics/sprite-wave-1.png) 0 -700px no-repeat; */
-			width: 1046px;
-			/* height: 1142px; */
-			height: 800px;
-			position: relative;
 			text-align: center;
+			transform-origin: center center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 
 		#screenCanvas {
 			z-index: 50;
+			transform-origin: center center;
 		}
 
 		/* Todo - remove */
@@ -122,10 +136,6 @@
 
 
 	<script type="module" src="/src/main.js"></script>
-
-	<script>
-		// const game = new Game();
-	</script>
 
 </body>
 
