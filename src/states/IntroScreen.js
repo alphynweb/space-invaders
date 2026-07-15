@@ -103,13 +103,13 @@ export default class IntroScreen {
             const xClicked = event.clientX - rect.left;
             const yClicked = event.clientY - rect.top;
 
-            if (x < xClicked && (x + startButtonConfigs.width) > xClicked && y < yClicked && (y + startButtonConfigs.height) > yClicked) {
-                console.log("Start button clicked");
-                this.screen.screen.removeEventListener('click', clickListen);
-                this.cleanup();
-                console.log("Start game from intor");
-                this.startGame();
-            }
+            // if (x < xClicked && (x + startButtonConfigs.width) > xClicked && y < yClicked && (y + startButtonConfigs.height) > yClicked) {
+            // console.log("Start button clicked");
+            this.screen.screen.removeEventListener('click', clickListen);
+            this.cleanup();
+            // console.log("Start game from intor");
+            this.startGame();
+            // }
         }
 
         this.screen.screen.addEventListener('click', clickListen, { once: true });
@@ -201,27 +201,37 @@ export default class IntroScreen {
     }
 
     renderStartButton = () => {
-        const subType = 'startButton';
-        const animationType = 'normal';
-        const startButtonConfigs = this.buttonConfig.configs[subType].spriteInfo[animationType];
-        const width = startButtonConfigs.width;
-        const height = startButtonConfigs.height;
-        const x = this.screenCenter - (width / 2);
-        const y = 400;
+        // const subType = 'startButton';
+        // const animationType = 'normal';
+        // const startButtonConfigs = this.buttonConfig.configs[subType].spriteInfo[animationType];
+        // const width = startButtonConfigs.width;
+        // const height = startButtonConfigs.height;
+        // const x = this.screenCenter - (width / 2);
+        // const y = 400;
 
-        const startButton = new Button(
-            this.buttonConfig.type,
-            subType,
-            this.buttonConfig.configs,
-            x,
-            y
-        );
+        // const startButton = new Button(
+        //     this.buttonConfig.type,
+        //     subType,
+        //     this.buttonConfig.configs,
+        //     x,
+        //     y
+        // );
 
-        this.graphicsManager.render(startButton);
+        // this.graphicsManager.render(startButton);
     }
 
     renderInstructions = () => {
-        let y = 550;
+        let y = 400;
+
+        this.graphicsManager.renderText(
+            this.font,
+            this.fillStyle,
+            this.screen.width / 2,
+            y,
+            `${String.fromCharCode('8594')}   Click screen to play   ${String.fromCharCode('8592')} `
+        );
+
+        y += this.verticalSpacing * 2;
 
         this.graphicsManager.renderText(
             this.arrowFont,

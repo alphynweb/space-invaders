@@ -51,12 +51,12 @@ export default class GameOver {
             const xClicked = event.clientX - rect.left;
             const yClicked = event.clientY - rect.top;
 
-            if (x < xClicked && (x + startButtonConfigs.width) > xClicked && y < yClicked && (y + startButtonConfigs.height) > yClicked) {
+            // if (x < xClicked && (x + startButtonConfigs.width) > xClicked && y < yClicked && (y + startButtonConfigs.height) > yClicked) {
                 event.currentTarget.removeEventListener('click', clickListen);
                 this.graphicsManager.clear();
                 this.cleanup();
                 this.startGame();
-            }
+            // }
         }
 
         this.screen.screen.addEventListener('click', clickListen, { once: true });
