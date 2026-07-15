@@ -34,6 +34,7 @@ The game uses an object-oriented structure with separate systems responsible for
 
 ## Project Structure
 
+Coming shortly.
 
 ## Graphics & Audio
 
