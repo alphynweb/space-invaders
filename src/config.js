@@ -241,7 +241,6 @@ export const INVADER = {
                 }
             }
         },
-
         invader2: {
             width: 48,
             height: 32,

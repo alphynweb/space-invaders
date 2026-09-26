@@ -1,27 +1,59 @@
 import { INVADERS } from '../../config';
+import type { AnimationType, SpriteInfo } from '../../types/SpriteInfo';
+
+interface InvaderConfig {
+    score: number;
+    width: number;
+    height: number;
+    explosionDuration: number;
+    spriteInfo: SpriteInfo;
+}
+
+interface InvaderConfigs {
+    [key: string]: InvaderConfig;
+}
 
 export default class Invader {
-    constructor(type, subType, configs, x, y) {
-        // const config = configs.find(config => config.subType === subType);
-        const config = configs[subType];
+    animationType: AnimationType;
+    animationFrame: number;
+    spriteInfo: SpriteInfo;
+    direction: 'right' | 'left';
+    type: string;
+    subType: string;
+    score: number;
+    width: number;
+    height: number;
+    explosionDuration: number;
+    explosionTimer: number;
+    isActive: boolean;
+    x: number;
+    y: number;
+
+    constructor(
+        type: string,
+        subType: string,
+        invaderConfigs: InvaderConfigs,
+        x: number,
+        y: number,
+    ) {
+        const invaderConfig: InvaderConfig = invaderConfigs[subType];
         this.type = type;
         this.subType = subType;
-        this.score = config.score;
-        this.width = config.width;
-        this.height = config.height;
-        this.explosionDuration = config.explosionDuration;
+        this.score = invaderConfig.score;
+        this.width = invaderConfig.width;
+        this.height = invaderConfig.height;
+        this.explosionDuration = invaderConfig.explosionDuration;
         this.explosionTimer = 0;
         this.x = x;
         this.y = y;
         this.isActive = true; // Determines whether invader is active in game (switch to false when animating explosion etc)
-        this.sound = null;
         this.direction = 'right';
         this.animationType = 'normal';
-        this.spriteInfo = config.spriteInfo;
+        this.spriteInfo = invaderConfig.spriteInfo;
         this.animationFrame = 0;
     }
 
-    move(direction) {
+    move(direction: 'left' | 'right' | 'down'): void {
         if (direction !== 'down') {
             this.x += direction === 'right' ? INVADERS.configs['wave1'].moveSpeed : -INVADERS.configs['wave1'].moveSpeed;
         } else {
@@ -35,11 +67,11 @@ export default class Invader {
         }
     }
 
-    destroy() {
+    destroy(): void {
         this.animationType = 'exploding';
     }
 
-    update(delta) {
+    update(delta: number): void {
         if (this.animationType === 'exploding') {
             this.explosionTimer += delta;
             if (this.explosionTimer >= this.explosionDuration) {
