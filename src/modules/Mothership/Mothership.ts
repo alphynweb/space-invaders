@@ -1,9 +1,60 @@
+import type { AnimationType, SpriteInfo } from '../../types/SpriteInfo';
+
+interface MothershipConfig {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    speed: number;
+    spriteX: number;
+    spriteY: number;
+    frameLengths: FrameLengths;
+    explosionDuration: number;
+    timingMin: number;
+    timingMax: number;
+    spriteInfo: SpriteInfo;
+}
+
+interface MothershipConfigs {
+    [key: string]: MothershipConfig
+}
+
+interface FrameLengths {
+    normal: number;
+}
+
 export default class Mothership {
-    constructor(type, subType, configs, x, y) {
+    type: string;
+    subType: string;
+    score: number;
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+    isActive: boolean;
+    speed: number;
+    animationType: AnimationType;
+    animationFrame: number;
+    animationFrames: number;
+    frameTimer: number;
+    frameLengths: FrameLengths;
+    spriteInfo: SpriteInfo;
+    explosionDuration: number;
+    explosionTimer: number;
+    appearanceTimer: number;
+    timingMin: number;
+    timingMax: number;
+
+    constructor(
+        type: string,
+        subType: string,
+        configs: MothershipConfigs,
+        x: number,
+        y: number
+    ) {
         const config = configs[subType];
         this.type = type;
         this.subType = subType;
-        this.score = config.score;
         this.width = config.width;
         this.height = config.height;
         this.x = x;
@@ -21,6 +72,7 @@ export default class Mothership {
         this.appearanceTimer = 0;
         this.timingMin = config.timingMin;
         this.timingMax = config.timingMax;
+        this.score = Math.ceil(Math.random() * 10) * 100;
     }
 
     initializeLevel() {
@@ -53,12 +105,13 @@ export default class Mothership {
         }
     }
 
-    update = (delta) => {
+    update = (delta: number) => {
         if (this.animationType === 'normal') {
             this.frameTimer += delta;
 
-            const currentFrame = this.spriteInfo[this.animationType][this.animationFrame];
-            const currentFrameDuration = currentFrame.frameLength ?? this.frameLengths[this.animationType];
+            // const currentFrame = this.spriteInfo[this.animationType][this.animationFrame];
+            // const currentFrameDuration = currentFrame.frameLength ?? this.frameLengths[this.animationType];
+            const currentFrameDuration = this.frameLengths[this.animationType];
 
             if (this.frameTimer >= currentFrameDuration) {
                 this.frameTimer = 0;
