@@ -189,7 +189,7 @@ export default class Game {
             this.tankConfig.type,
             'main',
             this.tankConfig.configs,
-            this.screen
+            this.screen.width
         );
 
         this.collisionSystem = new CollisionSystem(

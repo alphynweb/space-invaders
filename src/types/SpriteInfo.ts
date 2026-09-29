@@ -8,6 +8,7 @@ export interface SpriteInfoFrame {
 }
 
 export interface SpriteInfo {
-    normal: SpriteInfoFrame[];
-    exploding: SpriteInfoFrame[];
+    normal: SpriteInfoFrame;
+    exploding: SpriteInfoFrame;
+    shooting: SpriteInfoFrame;
 }
