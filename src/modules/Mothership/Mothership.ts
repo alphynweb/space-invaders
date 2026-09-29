@@ -1,5 +1,16 @@
 import type { AnimationType, SpriteInfo } from '../../types/SpriteInfo';
 
+interface MothershipSpriteInfoFrame {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
+
+interface MothershipSpriteInfo {
+    [key: string]: MothershipSpriteInfoFrame[];
+}
+
 interface MothershipConfig {
     x: number;
     y: number;
@@ -12,7 +23,7 @@ interface MothershipConfig {
     explosionDuration: number;
     timingMin: number;
     timingMax: number;
-    spriteInfo: SpriteInfo;
+    spriteInfo: MothershipSpriteInfo;
 }
 
 interface MothershipConfigs {
@@ -38,7 +49,7 @@ export default class Mothership {
     animationFrames: number;
     frameTimer: number;
     frameLengths: FrameLengths;
-    spriteInfo: SpriteInfo;
+    spriteInfo: MothershipSpriteInfo;
     explosionDuration: number;
     explosionTimer: number;
     appearanceTimer: number;
