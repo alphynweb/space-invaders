@@ -16,7 +16,6 @@ export default class Lives {
     config: LifeConfig;
     livesLeft: number;
 
-
     constructor(
         configs: LivesConfigs
     ) {
