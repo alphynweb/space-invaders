@@ -1,4 +1,4 @@
-import { SpriteInfo } from '../../types/SpriteInfo';
+import type { SpriteInfo } from '../../types/SpriteInfo';
 
 interface LifeConfig {
     x: number;

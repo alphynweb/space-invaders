@@ -1,4 +1,4 @@
-import { SpriteInfo } from '../../types/SpriteInfo';
+import type { SpriteInfo } from '../../types/SpriteInfo.js';
 
 interface TankConfig {
     x: number;
@@ -38,6 +38,11 @@ export default class Tank {
         screenWidth: number
     ) {
         const config = tankConfigs[subType];
+
+        if (!config) {
+            throw new Error('Config file for Tank not found');
+        }
+
         this.animationType = 'normal';
         this.type = type;
         this.subType = subType;
@@ -61,10 +66,6 @@ export default class Tank {
     move = (direction: 'left' | 'right') => {
         if (direction === 'left') this.x -= this.speed;
         if (direction === 'right') this.x += this.speed;
-
-        console.log(this.spriteInfo[this.animationType]);
-
-        debugger;
 
         const tankWidth = this.spriteInfo[this.animationType].width;
 

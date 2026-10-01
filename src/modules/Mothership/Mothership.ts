@@ -1,4 +1,4 @@
-import type { AnimationType, SpriteInfo } from '../../types/SpriteInfo';
+import type { AnimationType, SpriteInfo } from '../../types/SpriteInfo.js';
 
 interface MothershipSpriteInfoFrame {
     x: number;
@@ -64,6 +64,11 @@ export default class Mothership {
         y: number
     ) {
         const config = configs[subType];
+
+        if (!config) {
+            throw new Error('Config for Mothership not found');
+        }
+
         this.type = type;
         this.subType = subType;
         this.width = config.width;
