@@ -1,4 +1,4 @@
-import type { AnimationType, SpriteInfo } from '../../types/SpriteInfo.js';
+import type { AnimationType } from '../../types/SpriteInfo.js';
 
 interface MothershipSpriteInfoFrame {
     x: number;
@@ -8,7 +8,8 @@ interface MothershipSpriteInfoFrame {
 }
 
 interface MothershipSpriteInfo {
-    [key: string]: MothershipSpriteInfoFrame[];
+    normal: MothershipSpriteInfoFrame[];
+    exploding: MothershipSpriteInfoFrame[];
 }
 
 interface MothershipConfig {
@@ -32,6 +33,7 @@ interface MothershipConfigs {
 
 interface FrameLengths {
     normal: number;
+    exploding: number;
 }
 
 export default class Mothership {
@@ -67,6 +69,12 @@ export default class Mothership {
 
         if (!config) {
             throw new Error('Config for Mothership not found');
+        }
+
+        const spriteInfo = config.spriteInfo;
+
+        if (!spriteInfo) {
+            throw new Error('Sprite info for Mothership not found');
         }
 
         this.type = type;
@@ -112,6 +120,7 @@ export default class Mothership {
     }
 
     destroy() {
+        this.animationFrame = 0;
         this.animationType = 'exploding';
     }
 

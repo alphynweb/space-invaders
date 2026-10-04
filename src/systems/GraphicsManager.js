@@ -49,6 +49,14 @@ export default class GraphicsManager {
 
         if (Array.isArray(entityConfig.spriteInfo[animationType])) {
             const animationFrame = entity.animationFrame;
+
+            const spriteInfo = entityConfig.spriteInfo[animationType][animationFrame];
+
+            if (!spriteInfo) {
+                // Give us some information here
+                console.trace("Sprite info undefined");
+            }
+
             sx = entityConfig.spriteInfo[animationType][animationFrame].x;
             sy = entityConfig.spriteInfo[animationType][animationFrame].y;
             width = entityConfig.spriteInfo[animationType][animationFrame].width;

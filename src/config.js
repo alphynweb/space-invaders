@@ -90,24 +90,24 @@ export const TANK = {
             height: 32,
             explosionDuration: 2000,
             spriteInfo: {
-                normal: {
+                normal: [{
                     x: 1224,
                     y: 1034,
                     width: 52,
                     height: 32
-                },
-                shooting: {
+                }],
+                shooting: [{
                     x: 1224,
                     y: 1034,
                     width: 52,
                     height: 32
-                },
-                exploding: {
+                }],
+                exploding: [{
                     x: 1129,
                     y: 1138,
                     width: 43,
                     height: 26
-                }
+                }]
             }
         }
     }
@@ -233,12 +233,14 @@ export const INVADER = {
                         height: 32
                     }
                 ],
-                exploding: {
-                    x: 1129,
-                    y: 1238,
-                    width: 43,
-                    height: 26
-                }
+                exploding: [
+                    {
+                        x: 1129,
+                        y: 1238,
+                        width: 43,
+                        height: 26
+                    }
+                ]
             }
         },
         invader2: {

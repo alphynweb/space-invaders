@@ -1,5 +1,3 @@
-import Sprite from '../Sprite/Sprite';
-
 interface CitySpriteInfo {
     x: number;
     y: number;
@@ -31,7 +29,7 @@ export default class City {
     spriteInfo: CitySpriteInfo;
     type: string;
     ctx: CanvasRenderingContext2D;
-    sprite: Sprite;
+    // sprite: Sprite;
 
     constructor(
         canvasId: string,
@@ -48,6 +46,11 @@ export default class City {
         }
 
         const cityConfig = config.configs['main'];
+
+        if (!cityConfig) {
+            throw new Error('Config for City not found');
+        }
+
         this.canvasId = canvasId;
         this.x = x;
         this.y = cityConfig.y;
@@ -64,7 +67,7 @@ export default class City {
         }
 
         this.ctx = ctx;
-        this.sprite = new Sprite();
+        // this.sprite = new Sprite();
         this.width = cityConfig.width;
         this.height = cityConfig.height;
         this.spriteInfo = cityConfig.spriteInfo;

@@ -16,6 +16,7 @@ interface TankConfigs {
 
 export default class Tank {
     animationType: 'normal' | 'shooting' | 'exploding';
+    animationFrame: number;
     type: string;
     subType: string;
     width: number;
@@ -44,6 +45,7 @@ export default class Tank {
         }
 
         this.animationType = 'normal';
+        this.animationFrame = 0;
         this.type = type;
         this.subType = subType;
         this.width = config.width;
@@ -67,15 +69,22 @@ export default class Tank {
         if (direction === 'left') this.x -= this.speed;
         if (direction === 'right') this.x += this.speed;
 
-        const tankWidth = this.spriteInfo[this.animationType].width;
+        const spriteInfoFrames = this.spriteInfo[this.animationType][0];
 
-        this.x = Math.max(
+        if (!spriteInfoFrames) {
+            throw new Error('Sprite info frames not found for Tank');
+        }
+
+        const tankWidth = spriteInfoFrames.width;
+
+             this.x = Math.max(
             0,
             Math.min(this.x, this.screenWidth - tankWidth)
         );
     }
 
     destroy = () => {
+        this.animationFrame = 0;
         this.animationType = 'exploding';
         this.isActive = false;
     }

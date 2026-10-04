@@ -19,7 +19,14 @@ export default class Lives {
     constructor(
         configs: LivesConfigs
     ) {
-        this.config = configs['main'];
+        const config = configs['main'];
+
+        if (!config) {
+            throw new Error('Lives config not found');
+        }
+
+        this.config = config;
+
         this.livesLeft = this.config.lives;
     }
 

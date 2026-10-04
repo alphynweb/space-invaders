@@ -1,4 +1,4 @@
-import { INVADERS } from '../../config';
+import { INVADERS } from '../../config.js'; // Todo - reconsider how direct refernce is used in this file
 import type { AnimationType, SpriteInfo } from '../../types/SpriteInfo';
 
 interface InvaderConfig {
@@ -36,7 +36,12 @@ export default class Invader {
         x: number,
         y: number,
     ) {
-        const invaderConfig: InvaderConfig = invaderConfigs[subType];
+        const invaderConfig = invaderConfigs[subType];
+
+        if (!invaderConfig) {
+            throw new Error('Config for Invader not found');
+        }
+        
         this.type = type;
         this.subType = subType;
         this.score = invaderConfig.score;
@@ -60,7 +65,13 @@ export default class Invader {
             this.y += INVADERS.configs['wave1'].shiftDownSpeed;
         }
 
-        if (this.animationFrame < (this.spriteInfo[this.animationType].length - 1)) {
+        const spriteInfoFrames = this.spriteInfo[this.animationType];
+
+        if (!spriteInfoFrames) {
+            throw new Error('Sprite Info Frames not found for Invader');
+        }
+
+        if (this.animationFrame < (spriteInfoFrames.length - 1)) {
             this.animationFrame++;
         } else {
             this.animationFrame = 0;
@@ -68,6 +79,7 @@ export default class Invader {
     }
 
     destroy(): void {
+        this.animationFrame = 0;
         this.animationType = 'exploding';
     }
 

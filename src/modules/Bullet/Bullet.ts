@@ -1,4 +1,4 @@
-import type { SpriteInfo } from  '../../types/SpriteInfo.js';
+import type { SpriteInfo } from '../../types/SpriteInfo.js';
 
 interface BulletConfig {
     direction: 'up' | 'down';
@@ -24,17 +24,22 @@ export default class Bullet {
     animationType: 'normal';
 
     constructor(
-        type: string, 
-        subType: string, 
-        bulletConfigs: BulletConfigs, 
-        x: number, 
+        type: string,
+        subType: string,
+        bulletConfigs: BulletConfigs,
+        x: number,
         y: number
     ) {
         this.type = type;
-        this.subType = subType; 
+        this.subType = subType;
         const bulletConfig = bulletConfigs[subType];
-        this.x = x; 
-        this.y = y; 
+
+        if (!bulletConfig) {
+            throw new Error('Config for Bullet not found');
+        }
+        
+        this.x = x;
+        this.y = y;
         this.width = bulletConfig.width;
         this.height = bulletConfig.height;
         this.direction = bulletConfig.direction;
